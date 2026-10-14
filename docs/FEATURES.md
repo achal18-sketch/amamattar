@@ -33,3 +33,26 @@ Features added beyond the original spec, ranked by how much they matter for a re
 13. **Fraud network detection** – the same face or voice showing up across many applications or tenants (privacy-preserving hashes).
 14. **Bias audit dashboard** – live impact ratios per job, with automatic auto-dispatch freeze below 0.8.
 15. **White-label & custom domain** for agencies hosting many client companies.
+
+## Universal job coverage (v3)
+The interviewer covers **every job**: 22 fields and 340+ preset roles, and you can type in any other job title.
+Each field maps to an interview format the AI runs:
+
+| Format | Fields (examples) |
+|---|---|
+| Technical deep-dive + problem solving | Software & IT, Cyber Security, Engineering |
+| Clinical case | Doctors, nurses, pharmacists, therapists, veterinarians |
+| Legal case analysis | Lawyers, paralegals, compliance, company secretaries |
+| Teaching demo | Teachers, lecturers, tutors, trainers |
+| Sales role-play (AI = prospect) | Sales executive, salesman, account exec, real estate, insurance |
+| Customer role-play (AI = upset customer) | Call centre, support, hospitality |
+| Leadership scenarios | Managers, directors, CXOs, HR |
+| Analytical case | Finance, banking, science, research |
+| **Live audition** (perform on camera/mic, take direction, second take) | Singers, actors, voice artists, dubbing, RJs, anchors, dancers, comedians, musicians, models, athletes |
+| Portfolio + live brief | Marketing, design, media, journalism |
+| Practical/safety scenarios | Trades, technicians, agriculture, logistics, operations |
+| Structured behavioural + situational | Office/white-collar, government, any other job |
+
+Note: for auditions the transcript-based scorer judges direction-taking and craft knowledge;
+vocal and visual quality are flagged for human review (production: add an audio-analysis model
+for pitch/timing, scored separately and audited for bias).
