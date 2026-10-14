@@ -65,3 +65,18 @@ for pitch/timing, scored separately and audited for bias).
 | **Practice mode** | Mock interview with one line of coaching after each answer; kept private and out of the hiring queue. |
 | **Invite & scheduling** | Candidate details + date/time zone → calendar invite (.ics) and invite email with AI disclosure and accommodation info. |
 | **Email & offer drafts** | From the report: personalised feedback / next-step email, or a conditional offer letter with placeholders. |
+
+## v5 — "nobody else has this" features
+| Feature | What it does |
+|---|---|
+| **Live claim ledger** | While the candidate talks, the AI pulls out every concrete claim ("cut p99 by 40%") and marks it probing → supported/unsupported as it follows up. |
+| **Speech analytics** | Live pace (wpm), filler words, talk-time ratio and answer length — coaching in practice mode, context for reviewers (never scored). |
+| **Fairness shield** | Mentions of protected traits (age, marital status, religion, pregnancy, nationality, disability…) are stripped out before scoring and from evidence, and the report says how many were removed. |
+| **Competency radar** | A spider chart of the candidate's scores for each skill. |
+| **Highlight reel** | Click any evidence quote to jump the recorded video to that exact moment. |
+| **AI hiring committee** | A Hiring Manager, a Senior Peer and a Skeptic, each an expert in the field, debate the evidence and agree on a verdict plus the one question a human should still ask. |
+| **Ask the dossier** | Chat with the interview: "How did they handle the price objection?" Answers cite turn numbers. |
+| **Head-to-head comparison** | Select candidates in Pipeline → AI ranking with the deciding factor. |
+| **30-60-90 onboarding plan** | A personalised first-90-days plan built from this hire's growth areas. |
+| **Reference-check script** | Legally safe questions that check this candidate's specific claims. |
+| **First-year growth projection** | A labelled hypothesis covering ramp-up time, where they'll need support and which manager style suits them best. |
