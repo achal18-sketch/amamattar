@@ -11,6 +11,8 @@ hiring decisions. Target: 50,000+ interviews/day, ~5,000 concurrent sessions at 
 | 3. API & event specs | [docs/API_AND_EVENTS.md](docs/API_AND_EVENTS.md) |
 | 4. Agent prompt strategy & tools | [prompts/INTERVIEWER_AGENT.md](prompts/INTERVIEWER_AGENT.md) |
 | Compliance design | [docs/COMPLIANCE.md](docs/COMPLIANCE.md) |
+| Additional features & roadmap | [docs/FEATURES.md](docs/FEATURES.md) |
+| **Live prototype app** (open in Chrome) | [app/index.html](app/index.html) |
 
 > **Design stance on autonomy.** The spec asks for "zero human HR intervention." Under the
 > EU AI Act (Annex III, high-risk: employment) Art. 14 human oversight is mandatory, GDPR
