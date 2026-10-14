@@ -56,3 +56,12 @@ Each field maps to an interview format the AI runs:
 Note: for auditions the transcript-based scorer judges direction-taking and craft knowledge;
 vocal and visual quality are flagged for human review (production: add an audio-analysis model
 for pitch/timing, scored separately and audited for bias).
+
+## v4 additions
+| Feature | What it does |
+|---|---|
+| **Auto ideal-candidate profile** | Type any designation → AI writes purpose, responsibilities, must-have skills, qualifications/licences, experience, soft skills, red flags and assessment method (offline template per field when AI is unavailable). Regenerates on designation/level/field change. |
+| **Resume-aware interviewing** | Paste the CV; the interviewer probes specific claims and projects. |
+| **Practice mode** | Mock interview with one line of coaching after each answer; kept private and out of the hiring queue. |
+| **Invite & scheduling** | Candidate details + date/time zone → calendar invite (.ics) and invite email with AI disclosure and accommodation info. |
+| **Email & offer drafts** | From the report: personalised feedback / next-step email, or a conditional offer letter with placeholders. |
