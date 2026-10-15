@@ -121,3 +121,8 @@ All signals feed a 0–100 risk meter and a clickable integrity timeline in the 
 - **Empathy:** the interviewer acknowledges feelings the candidate *says out loud* ("I'm nervous"), uses their own words back and keeps a natural, human manner. "I need a moment" pauses kindly. It never reads emotion from face or voice: that is banned in hiring (EU AI Act Art. 5(1)(f)) and unreliable.
 - **Calm music:** optional ambient music generated live, which fades down automatically while the interviewer speaks.
 - **Audition studio** (performing-arts roles): backing tracks in any key and tempo (ballad, pop, metronome, tanpura drone) plus a live pitch meter showing note, cents off and % in tune. The report adds a pitch analysis; artistry and expression are left to a human judge.
+
+## v10 — More realistic interviewer
+- **Shaded portraits:** realistic proportions, skin shading, iris detail, hair highlights, blazer and shirt, gentle breathing, blinking, and lips that open with the voice. Five distinct looks.
+- **Real human presenter (most realistic):** upload a **photo** (shown with subtle breathing motion and a speaking glow), or an **idle video + talking video** of a real presenter. The app plays the talking clip whenever the interviewer speaks. Use only people who consented, or faces from an AI-avatar provider. The "AI" badge stays on.
+- **Fully photoreal, lip-synced live human:** needs a streaming avatar provider (Tavus, HeyGen Interactive Avatar, D-ID Agents). Plug it in at the avatar tile; see ARCHITECTURE §1.6.
