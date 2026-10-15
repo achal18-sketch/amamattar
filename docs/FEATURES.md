@@ -173,3 +173,9 @@ All purchases are demo-only. Real payments need a gateway such as Razorpay.
 - Purchases and the hiring-fee tracker show amounts **including GST**.
 - **🧾 Tax invoice (demo):** asks for the billing state and an optional GSTIN. Same state as the seller (set to Maharashtra) → **CGST 9% + SGST 9%**; another state → **IGST 18%**. Lists every purchase and hiring fee with taxable value, GST and total.
 - Before going live: register for GST, put your real legal name, GSTIN and state in the app (`SELLER_STATE` and the supplier line), and have a CA confirm the SAC codes and the GST treatment of each service. Invoices must come from proper accounting or payment software (for example Razorpay Invoices or Zoho Books), not this demo.
+
+## v17 — Plans follow the selected role
+- 🏢 Company → only company plans (tabs: Subscription plans, Pay as you go; plus Extras in admin view).
+- 👤 Job seeker → only job-seeker plans (and Freelance & gig, when turned on in admin).
+- 📚 Tutor / parent → only tutor & parent plans.
+- The heading says who the plans are for, and the Monthly / Yearly switch applies to whichever role is selected.
