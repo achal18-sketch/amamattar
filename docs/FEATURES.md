@@ -161,3 +161,9 @@ All purchases are demo-only. Real payments need a gateway such as Razorpay.
 - **🎁 Refer & earn:** a personal code and link; 5 credits for each paying referral.
 - **⬇ Export shortlist to CSV.**
 - **★ Tutor ratings** from parents after a contact.
+
+## v15 — Revenue boosters (no price rise on core plans)
+- **Hiring pipeline:** every accepted candidate moves through Contacted → Interview scheduled → Interviewed → Offer made → Offer accepted → Joined, with a one-click "Next" button, ⏰ nudge reminders, and a warning after 3+ days with no update. Shows *fees if all join* and *fees earned*. Choosing "Joined" records the hiring fee automatically. Each profile carries a "Pay on hire" tag.
+- **Yearly by default, "2 months free":** the plan switch now opens on Yearly and shows the rupees saved (e.g. Basic ₹2,989 saved). Yearly prices are unchanged.
+- **New company add-ons:** Urgent hiring boost ₹999 (7 days on top, alerts to nearby candidates) and Hiring assist ₹1,999 (we shortlist 5 and schedule interviews, then the normal fee on success). Both are in the launch set. Background check now ₹399 (was ₹299) and includes ID, address and education.
+- **Tutors in 18 cities:** a city picker with sample tutors in Pune, Mumbai, Delhi, Bengaluru, Hyderabad, Chennai, Kolkata, Ahmedabad, Jaipur, Lucknow, Indore, Nagpur, Kochi, Chandigarh, Bhopal, Patna, Surat and Coimbatore, plus a waitlist for other cities. Online tutors show in every city.
