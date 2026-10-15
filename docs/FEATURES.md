@@ -110,3 +110,7 @@ All signals feed a 0–100 risk meter and a clickable integrity timeline in the 
 - **Simple AI interviewer name.** Default "Ava"; pick Maya, Sam, Riya, Leo or Mia, or type any name.
 - **Job-seeker extras.** Matched jobs, practice for each one, see who viewed you (Gold+), AI profile coach with salary benchmark (Platinum).
 - **No photos, age, religion or caste fields.** Unlike matrimonial sites, profiles hold only job-related data, to avoid discrimination.
+
+## v8 — 72,000+ jobs worldwide, yearly company pricing
+- Job search across **72,007 titles** (from the MIT-licensed list in `data/`, plus the presets). Results appear as you type, each tagged with its auto-detected field; picking one sets the interview format.
+- Company plans are now **billed yearly** and cost about 8–9% more: Starter ₹64,999/yr, Pro ₹1,94,999/yr, Enterprise from ₹9,99,999/yr. Job-seeker plans stay monthly.
