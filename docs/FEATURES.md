@@ -187,7 +187,7 @@ All purchases are demo-only. Real payments need a gateway such as Razorpay.
 - Still on, because they aren't the interviewer: "Describe who you need", the ideal-candidate profile and the profile coach. These use Claude when it's connected, otherwise the built-in rules.
 
 ## v19 — Competing with the big job portals (all 10 suggestions)
-1. **72-hour reply promise:** companies get a "⚡ Fast responder %" badge, or a warning when they're slow. Candidates see "replies in 72 h" on each interest.
+1. **100-hour reply promise:** companies get a "⚡ Fast responder %" badge, or a warning when they're slow. Candidates see "replies in 100 h" on each interest.
 2. **WhatsApp alerts** for companies (number + switch) and job seekers. Notifications are marked "sent on WhatsApp" (demo). A live app needs the WhatsApp Business API, e.g. through Gupshup, Interakt or Twilio.
 3. **Verified companies:** GSTIN/CIN format check (kept private), a "✔ Verified company" badge, and **⚑ Report job** on every job for scams and money requests.
 4. **Salary required:** companies can't search without a salary budget. Every job shows a salary range, and job seekers can filter by minimum salary.
