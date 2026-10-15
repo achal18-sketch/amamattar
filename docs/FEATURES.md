@@ -167,3 +167,9 @@ All purchases are demo-only. Real payments need a gateway such as Razorpay.
 - **Yearly by default, "2 months free":** the plan switch now opens on Yearly and shows the rupees saved (e.g. Basic ₹2,989 saved). Yearly prices are unchanged.
 - **New company add-ons:** Urgent hiring boost ₹999 (7 days on top, alerts to nearby candidates) and Hiring assist ₹1,999 (we shortlist 5 and schedule interviews, then the normal fee on success). Both are in the launch set. Background check now ₹399 (was ₹299) and includes ID, address and education.
 - **Tutors in 18 cities:** a city picker with sample tutors in Pune, Mumbai, Delhi, Bengaluru, Hyderabad, Chennai, Kolkata, Ahmedabad, Jaipur, Lucknow, Indore, Nagpur, Kochi, Chandigarh, Bhopal, Patna, Surat and Coimbatore, plus a waitlist for other cities. Online tutors show in every city.
+
+## v16 — GST on every plan
+- Every paid plan, add-on and pay-as-you-go item shows **"+ 18% GST ₹X = ₹Y total"**, for monthly, yearly and one-time prices. Hiring fees show the fee + GST, and tutor buttons say "+ GST".
+- Purchases and the hiring-fee tracker show amounts **including GST**.
+- **🧾 Tax invoice (demo):** asks for the billing state and an optional GSTIN. Same state as the seller (set to Maharashtra) → **CGST 9% + SGST 9%**; another state → **IGST 18%**. Lists every purchase and hiring fee with taxable value, GST and total.
+- Before going live: register for GST, put your real legal name, GSTIN and state in the app (`SELLER_STATE` and the supplier line), and have a CA confirm the SAC codes and the GST treatment of each service. Invoices must come from proper accounting or payment software (for example Razorpay Invoices or Zoho Books), not this demo.
