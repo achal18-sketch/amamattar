@@ -54,6 +54,8 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;p
 .kpi>div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}.kpi b{display:block;font-size:24px}
 .note{font-size:13px;color:var(--mute)}
 .hide{display:none!important}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chips button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer;min-height:34px}.chips button[aria-pressed="true"]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:600}
+#dlgBody details{border-bottom:1px solid var(--line);padding:8px 0}#dlgBody summary{cursor:pointer;font-weight:600;padding:6px 0}#dlgBody .rl{display:flex;flex-wrap:wrap;gap:6px;padding:6px 0}#dlgBody .rl button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:5px 10px;font:inherit;font-size:13px;cursor:pointer}#dlgBody .rl button:hover{border-color:var(--acc)}
 .sugg{position:absolute;z-index:20;background:var(--panel);border:1px solid var(--line);border-radius:8px;max-height:280px;overflow:auto;box-shadow:0 8px 24px rgba(0,0,0,.15);min-width:260px}.sugg div{padding:6px 10px;cursor:pointer;font-size:14px}.sugg div:hover,.sugg div.on{background:var(--chip)}.sugg small{color:var(--mute);margin-left:6px}
 .ev{border-left:3px solid var(--acc);padding:4px 10px;margin:6px 0;font-size:13px;color:var(--mute)}
 </style>
@@ -78,12 +80,13 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;p
 <label>Voice <span class="note">(from your device)</span></label><select id="voice"><option value="">Auto</option></select>
 <label>AI interviewer name</label><input id="ainame" value="Ava" list="ainames"><datalist id="ainames"><option value="Ava"><option value="Maya"><option value="Sam"><option value="Riya"><option value="Leo"><option value="Mia"></datalist>
 <label>Field / industry <span class="note" id="fieldCount"></span></label><select id="field"></select>
-<label>Role title — search <b id="jobTotal">70,000+</b> jobs worldwide, or type any job</label><input id="title" autocomplete="off" value="Senior Backend Engineer"><datalist id="roles"></datalist>
+<label>Role title — search <b id="jobTotal">70,000+</b> jobs worldwide, or type any job</label><div class="row" style="flex-wrap:nowrap"><input id="title" autocomplete="off" value="Senior Backend Engineer" style="flex:1"><button class="btn ghost" id="browseBtn" type="button" style="white-space:nowrap">☰ Browse all</button></div><datalist id="roles"></datalist>
 <div class="note" id="fieldMode" style="margin-top:6px"></div>
 <div class="row" style="margin-top:8px"><button class="btn ghost" id="descBtn">✨ Describe ideal candidate</button><label style="margin:0"><input type="checkbox" id="autoDesc" checked style="width:auto"> auto when designation changes</label></div>
-<label>Level</label><select id="level"><option>junior</option><option>mid</option><option selected>senior</option><option>staff</option><option>manager</option><option>director</option></select>
+<label>Level(s) <span class="note" id="levelHint">— tick one or more</span></label><div class="chips" id="levelChips"></div><input type="hidden" id="level" value="senior">
+<label>Work type <span class="note">— tick one or more</span></label><div class="chips" id="etypeChips"></div><input type="hidden" id="etype" value="Full-time">
 <label>Interview length</label><select id="dur"><option value="5">5 min (demo)</option><option value="15">15 min</option><option value="45">45 min</option></select>
-<label>Language</label><select id="lang"><option value="en-US">English</option><option value="es-ES">Español</option><option value="fr-FR">Français</option><option value="de-DE">Deutsch</option><option value="hi-IN">हिन्दी</option></select>
+<label>Interview language(s) <span class="note">— first ticked is spoken; candidate may answer in any</span></label><div class="chips" id="langChips"></div><input type="hidden" id="lang" value="en-US"><input type="hidden" id="langs" value="English">
 </div><div>
 <label>Ideal candidate profile / job description <span class="note">(auto-generated from the designation — edit freely)</span></label><textarea id="jd" style="min-height:300px"></textarea>
 </div></div>
@@ -177,6 +180,10 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;p
 <p class="note">Decisions wait for human sign-off before any email or offer is sent (EU AI Act Art. 14 / GDPR Art. 22).</p></div>
 </section>
 </main>
+<dialog id="roleDlg" style="width:min(920px,94vw);max-height:86vh;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--ink);padding:0">
+<div style="position:sticky;top:0;background:var(--panel);padding:16px;border-bottom:1px solid var(--line);z-index:2"><div class="row" style="justify-content:space-between"><h2 style="margin:0">All roles by field</h2><button class="btn ghost" id="dlgClose" type="button" aria-label="Close">✕</button></div>
+<input id="dlgQ" placeholder="Type to search all 72,000+ roles…" style="margin-top:10px"><div class="note" id="dlgCount" style="margin-top:6px"></div></div>
+<div id="dlgBody" style="padding:8px 16px 16px;overflow:auto;max-height:68vh"></div></dialog>
 
 <script type="text/plain" id="jobdb">
 .Net Architect
@@ -72026,6 +72033,49 @@ fsel.onchange=()=>fieldChanged(true);
 $('#title').addEventListener('change',()=>{const t=$('#title').value.trim();if(!t)return;fsel.value=fieldFor(t);fieldChanged(false)});
 attachSearch($('#title'));
 fieldChanged(false);
+// ---------- field-specific levels, work types, languages (multi-select chips) ----------
+const SCHOOL=['Pre-school / Nursery','LKG','UKG',...Array.from({length:12},(_,i)=>'Class '+(i+1)),'Diploma','Undergraduate','Postgraduate','PhD / Research','Competitive exams (JEE / NEET / UPSC)','Spoken language / Adult learners','Special needs learners'];
+const LEVELS_BY_FIELD={
+ 'Education & Teaching':[...SCHOOL,'Trainee teacher','Teacher','Senior teacher','Head of department','Vice principal','Principal'],
+ 'Software & IT':['Intern','SDE I / Junior','SDE II / Mid','SDE III / Senior','Staff engineer','Senior staff','Principal engineer','Distinguished / Fellow','Tech lead','Engineering manager','Director of engineering','VP engineering','CTO'],
+ 'Cyber Security':['Intern','SOC analyst L1','SOC analyst L2','SOC analyst L3','Security engineer','Senior security engineer','Lead / Architect','Security manager','CISO'],
+ 'Data, AI & Analytics':['Intern','Junior analyst','Analyst / Data scientist','Senior','Lead','Staff / Principal','Head of data','Chief data officer'],
+ 'Engineering (non-software)':['Trainee / GET','Junior engineer','Engineer','Senior engineer','Lead engineer','Chief engineer','Engineering manager','Director'],
+ 'Medicine & Healthcare':['Medical student / Intern','House officer','Junior resident','Senior resident','Registrar','Fellow','Consultant','Senior consultant','Head of department','Medical director','Staff nurse','Charge nurse','Nurse manager','Technician','Senior technician'],
+ 'Law & Legal':['Law intern','Junior associate','Associate','Senior associate','Counsel','Partner','Managing partner','Judicial clerk','Judge'],
+ 'Sales & Business Development':['Trainee','Sales executive','Senior executive','Team lead','Area manager','Regional manager','National head','VP sales'],
+ 'Call Centre & Customer Service':['Trainee','Agent / CSR','Senior agent','Subject expert','Team leader','Quality analyst','Operations manager'],
+ 'Management & Leadership':['Team lead','Manager','Senior manager','General manager','Director','Vice president','CXO','Founder'],
+ 'Human Resources':['HR intern','HR executive','HR generalist','HR business partner','HR manager','Head of HR','CHRO'],
+ 'Finance, Banking & Accounting':['Article / Trainee','Junior accountant','Accountant / Analyst','Senior analyst','Manager','Controller','Head of finance','CFO'],
+ 'Performing Arts & Entertainment':['Child artist','Beginner','Trained amateur','Semi-professional','Professional','Established artist','Lead / Principal','Headliner / Star'],
+ 'Sports':['Junior / Youth','State level','National level','International','Professional / League','Coach','Head coach'],
+ 'Hospitality, Travel & Food':['Trainee','Commis / Assistant','Chef de partie / Associate','Sous chef / Supervisor','Head chef / Manager','General manager'],
+ 'Skilled Trades & Technicians':['Apprentice','Helper','Semi-skilled','Skilled','Master craftsperson','Foreman / Supervisor','Contractor'],
+ 'Operations, Logistics & Manufacturing':['Helper','Operator','Senior operator','Shift supervisor','Manager','Plant / Site head']};
+const LEVELS_BY_MODE={technical:LEVELS_BY_FIELD['Software & IT'],clinical:LEVELS_BY_FIELD['Medicine & Healthcare'],legal:LEVELS_BY_FIELD['Law & Legal'],teaching:LEVELS_BY_FIELD['Education & Teaching'],sales:LEVELS_BY_FIELD['Sales & Business Development'],service:LEVELS_BY_FIELD['Call Centre & Customer Service'],leadership:LEVELS_BY_FIELD['Management & Leadership'],analytical:LEVELS_BY_FIELD['Finance, Banking & Accounting'],performance:LEVELS_BY_FIELD['Performing Arts & Entertainment'],trade:LEVELS_BY_FIELD['Skilled Trades & Technicians'],operations:LEVELS_BY_FIELD['Operations, Logistics & Manufacturing'],creative:['Intern','Junior','Mid-level','Senior','Lead','Creative director'],general:['Fresher / Entry','Junior','Mid-level','Senior','Lead','Manager','Director','Executive']};
+const ETYPES=['Full-time','Part-time','Hourly basis','Daily wage','Contract','Freelance / Project','Internship','Apprenticeship','Private tutor (home tuition)','Online tutor','Remote','Shift work','Temporary / Seasonal','Volunteer'];
+const LANGS=[['English','en-US'],['Hindi','hi-IN'],['Bengali','bn-IN'],['Tamil','ta-IN'],['Telugu','te-IN'],['Marathi','mr-IN'],['Gujarati','gu-IN'],['Kannada','kn-IN'],['Malayalam','ml-IN'],['Punjabi','pa-IN'],['Urdu','ur-IN'],['Odia','or-IN'],['Spanish','es-ES'],['French','fr-FR'],['German','de-DE'],['Portuguese','pt-BR'],['Arabic','ar-SA'],['Chinese (Mandarin)','zh-CN'],['Japanese','ja-JP'],['Korean','ko-KR'],['Russian','ru-RU'],['Italian','it-IT'],['Indonesian','id-ID'],['Turkish','tr-TR'],['Swahili','sw-KE']];
+function chipGroup(box,opts,sel,onChange){const draw=()=>{box.innerHTML=opts.map((o,i)=>`<button type="button" data-i="${i}" aria-pressed="${sel.includes(o)}">${String(o).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</button>`).join('')};
+ box.onclick=e=>{const b=e.target.closest('button');if(!b)return;const o=opts[+b.dataset.i],k=sel.indexOf(o);if(k>=0){if(sel.length>1)sel.splice(k,1)}else sel.push(o);draw();onChange(sel)};draw();return{set:(o,s2)=>{opts=o;sel.splice(0,sel.length,...s2);draw();onChange(sel)}}}
+const levelSel=[],etypeSel=['Full-time'],langSel=['English'];
+const levelGrp=chipGroup($('#levelChips'),[],levelSel,s=>{$('#level').value=s.join(', ');$('#level').dispatchEvent(new Event('change'))});
+chipGroup($('#etypeChips'),ETYPES,etypeSel,s=>$('#etype').value=s.join(', '));
+chipGroup($('#langChips'),LANGS.map(l=>l[0]),langSel,s=>{$('#langs').value=s.join(', ');$('#lang').value=(LANGS.find(l=>l[0]===s[0])||LANGS[0])[1]});
+function refreshLevels(){const f=fsel.value,list=LEVELS_BY_FIELD[f]||LEVELS_BY_MODE[curMode()];const keep=levelSel.filter(x=>list.includes(x));const def=keep.length?keep:[list.find(x=>/senior/i.test(x))||list[Math.min(2,list.length-1)]];
+ $('#levelHint').textContent=f==='Education & Teaching'?'— tick the classes taught and the teacher level':'— '+f+' levels, tick one or more';levelGrp.set(list,def)}
+fsel.addEventListener('change',refreshLevels);$('#title').addEventListener('change',()=>setTimeout(refreshLevels,0));
+// ---------- browse all roles dialog ----------
+let GROUPS=null;function buildGroups(){if(GROUPS)return GROUPS;GROUPS={};for(const f of Object.keys(FIELDS))GROUPS[f]=new Set(FIELDS[f].roles);for(const t of JOBDB){const f=fieldFor(t);(GROUPS[f]||(GROUPS[f]=new Set())).add(t)}for(const f in GROUPS)GROUPS[f]=[...GROUPS[f]].sort((a,b)=>a.localeCompare(b));return GROUPS}
+function rl(list){return `<div class="rl">${list.map(t=>`<button type="button" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>`}
+function drawDlg(){const G=buildGroups(),q=$('#dlgQ').value.trim().toLowerCase();const body=$('#dlgBody');
+ if(!q){body.innerHTML=Object.entries(G).map(([f,l])=>`<details data-f="${esc(f)}"><summary>${esc(f)} <span class="note">· ${l.length.toLocaleString()} roles</span></summary></details>`).join('');$('#dlgCount').textContent=Object.keys(G).length+' fields · open one to see its roles, or type to search';return}
+ const ws=q.split(/\s+/);let n=0;const parts=[];for(const[f,l]of Object.entries(G)){const m=l.filter(t=>{const x=t.toLowerCase();return ws.every(w=>x.includes(w))});if(m.length){n+=m.length;parts.push(`<h3 style="margin:14px 0 4px">${esc(f)} <span class="note">· ${m.length}</span></h3>${rl(m.slice(0,150))}${m.length>150?'<div class="note">…refine your search to see more</div>':''}`)}}
+ body.innerHTML=parts.join('')||'<p class="note">No match — you can still type any role title.</p>';$('#dlgCount').textContent=n.toLocaleString()+' matching roles'}
+$('#dlgBody').addEventListener('toggle',e=>{const d=e.target;if(d.tagName!=='DETAILS'||!d.open||d.dataset.done)return;const l=GROUPS[d.dataset.f];d.insertAdjacentHTML('beforeend',rl(l.slice(0,400))+(l.length>400?`<button class="btn ghost more" type="button">Show all ${l.length.toLocaleString()}</button>`:''));d.dataset.done=1},true);
+$('#dlgBody').addEventListener('click',e=>{const m=e.target.closest('.more');if(m){const d=m.closest('details');m.remove();d.querySelector('.rl').outerHTML=rl(GROUPS[d.dataset.f]);return}const b=e.target.closest('[data-t]');if(!b)return;$('#title').value=b.dataset.t;$('#roleDlg').close();$('#title').dispatchEvent(new Event('change'))});
+let dlgT;$('#dlgQ').addEventListener('input',()=>{clearTimeout(dlgT);dlgT=setTimeout(drawDlg,150)});
+$('#browseBtn').onclick=()=>{$('#dlgQ').value='';drawDlg();$('#roleDlg').showModal();$('#dlgQ').focus()};$('#dlgClose').onclick=()=>$('#roleDlg').close();
 const curMode=()=>FIELDS[fsel.value].mode;
 // ---------- auto-describe ideal candidate from designation ----------
 const QUAL={
@@ -72091,7 +72141,7 @@ async function draftMail(p,kind){const o=$('#draftOut');o.classList.remove('hide
 const CO=()=>($('#hideCo').checked||!$('#company').value.trim())?'a confidential company':$('#company').value.trim();
 const AIN=()=>($('#ainame').value.trim()||'Ava').slice(0,20);
 
-const ROLECTX=()=>`Field: ${fsel.value}. Role: ${$('#title').value}. Interview format for this field: ${MODES[curMode()]}. You have expert, practitioner-level knowledge of this field (its terminology, standards, regulations, tools and best practices) and interview like a senior professional from it.`;
+const ROLECTX=()=>`Field: ${fsel.value}. Role: ${$('#title').value}. Level(s): ${$('#level').value}. Work type: ${$('#etype').value}. Interview languages: ${$('#langs').value} (speak the first; if the candidate answers in another listed language, continue in theirs). Interview format for this field: ${MODES[curMode()]}. You have expert, practitioner-level knowledge of this field (its terminology, standards, regulations, tools and best practices) and interview like a senior professional from it.`;
 
 // ---------- rubric ----------
 const TPL={
@@ -72433,6 +72483,7 @@ window.practiceFor=r=>{$('#title').value=r;$('#practice').checked=true;show('job
 function renderMatch(){renderPlans();if(M.role==='co')renderProfiles();else renderCand()}
 setRole(M.role||'co');
 
+refreshLevels();
 // ---------- pipeline ----------
 const DEMO=[{id:'d1',name:'Priya N.',role:'Senior Backend Engineer',overall:4.4,recm:'strong_hire',status:'approved · offer T2 drafted',conf:.91},{id:'d2',name:'Marcus O.',role:'Senior Backend Engineer',overall:3.7,recm:'hire',status:'awaiting sign-off',conf:.84},{id:'d3',name:'Lena K.',role:'Account Executive',overall:3.1,recm:'hold',status:'awaiting sign-off',conf:.58},{id:'d4',name:'Tom R.',role:'Account Executive',overall:2.4,recm:'reject',status:'approved · feedback sent',conf:.88}];
 function renderPipe(){const all=[...store,...DEMO];const pend=all.filter(p=>/awaiting/.test(p.status)).length;

@@ -126,3 +126,10 @@ All signals feed a 0–100 risk meter and a clickable integrity timeline in the 
 - **Shaded portraits:** realistic proportions, skin shading, iris detail, hair highlights, blazer and shirt, gentle breathing, blinking, and lips that open with the voice. Five distinct looks.
 - **Real human presenter (most realistic):** upload a **photo** (shown with subtle breathing motion and a speaking glow), or an **idle video + talking video** of a real presenter. The app plays the talking clip whenever the interviewer speaks. Use only people who consented, or faces from an AI-avatar provider. The "AI" badge stays on.
 - **Fully photoreal, lip-synced live human:** needs a streaming avatar provider (Tavus, HeyGen Interactive Avatar, D-ID Agents). Plug it in at the avatar tile; see ARCHITECTURE §1.6.
+
+## v11 — Browse roles, field levels, work types, multiple languages
+- **☰ Browse all** next to Role title: every role grouped under its field (38 fields, 72,000+ roles), with search that filters across all of them. Click a role to pick it.
+- **Levels change with the field, and you can tick several:** Software → Intern, SDE I–III, Staff, Principal, Tech lead, EM… CTO. Education → Pre-school, LKG, UKG, **Class 1–12**, Diploma, UG, PG, PhD, competitive exams, adult & special-needs learners, plus teacher seniority. Medicine, Law, Sales, Call centre, Finance, Arts, Sports, Trades, Hospitality and Operations each have their own ladders.
+- **Work type (multi-select):** Full-time, Part-time, **Hourly basis**, Daily wage, Contract, Freelance, Internship, Apprenticeship, **Private tutor (home tuition)**, Online tutor, Remote, Shift work, Temporary, Volunteer.
+- **Interview languages (multi-select, 25 languages including 12 Indian):** the first ticked is spoken; the candidate may answer in any ticked language and the AI continues in theirs.
+- The levels, work types and languages all go to the AI's rubric, questions and scoring.
