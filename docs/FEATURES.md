@@ -212,3 +212,14 @@ All rating and review features are removed: the Ratings & reviews card, the ★ 
 - **Tutors:** each tutor card shows a ★ score; after contacting a tutor, parents can "★ Rate tutor".
 - **Parents / families:** the Tutor view has a "Tutors: rate a parent / family" form (stars + short review) and a list of rated families.
 - No ratings for companies, household workers, students, colleges or recruiters.
+
+## v23 — AI resume upgrade (paid)
+- **📄 My resume** card for job seekers: upload a .txt/.md resume, or paste the text from a PDF or Word file. It shows a **resume score /100** and quick fixes (summary, numbers, action verbs, skills section, length).
+- **✨ Improve my resume with AI:** a paid feature.
+  - **Gold** (₹199/mo): 3 upgrades a month.
+  - **Platinum** (₹499/mo): unlimited, plus tailored versions.
+  - **One-time:** ₹99 + GST for a single upgrade (new pay-as-you-go item; human resume writing stays at ₹499/₹1,499).
+  - Free users see the score and tips, plus a "Buy 1 upgrade" button.
+- **The AI rewrite** (when Claude is connected) produces a clean, recruiter-software-friendly layout: summary, key skills, experience with action-verb bullets, education, certifications and languages. It keeps only facts that are in the original and marks missing numbers as [add number]. It never adds age, religion, caste, marital status or a photo.
+- **Without the AI**, a built-in template restructures the resume: name and contact found, weak phrases fixed ("responsible for" → "Managed"), "20 percent" → "20%", and sections rebuilt.
+- **Outputs:** shows the score before and after; Copy, ⬇ Download .txt, 🖨 Save as PDF (print), and **Use in my profile** (fills the headline and skills).
