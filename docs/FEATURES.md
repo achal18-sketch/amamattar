@@ -134,7 +134,7 @@ All signals feed a 0–100 risk meter and a clickable integrity timeline in the 
 - **Interview languages (multi-select, 25 languages including 12 Indian):** the first ticked is spoken; the candidate may answer in any ticked language and the AI continues in theirs.
 - The levels, work types and languages all go to the AI's rubric, questions and scoring.
 
-## v12 — Full plan catalog (55 plans & add-ons)
+## v12 — Full plan catalog (49 plans & add-ons)
 Grouped tabs, a Monthly/Yearly toggle and an **⚙ Admin: show/hide plans** switch. The launch set is visible by default (Company Free/Basic/Starter/Pro; single unlock, 6-credit pack, job post, hiring fee; job-seeker Free/Verified/Boost/Gold; parent contact, match pack, Tutor Pro). Everything else is built and hidden until an admin ticks it.
 - **Companies (9):** Free, Trial ₹499/7 days, Basic ₹1,499/mo or ₹14,999/yr, Starter ₹2,999/mo or ₹29,999/yr, Growth ₹5,999/mo, Pro ₹9,999/mo or ₹99,999/yr, Enterprise from ₹4,99,999/yr, Agency ₹7,999/mo, Campus ₹19,999 per season.
 - **Pay as you go (12):** unlock ₹199, credit packs (₹999 for 6 / ₹4,999 for 35 / ₹9,999 for 80), job post ₹499 (+Urgent/Featured), hiring fee 8.33% (min ₹10,000), junior hire ₹4,999, hiring drive ₹25,000, background check ₹299, reference check ₹499, featured company page ₹1,999/mo, job alert blast ₹999.
