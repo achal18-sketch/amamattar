@@ -144,3 +144,12 @@ Grouped tabs, a Monthly/Yearly toggle and an **⚙ Admin: show/hide plans** swit
 - **Credits wallet:** unlocks come from the plan quota first, then credits.
 - **Hiring-fee tracker:** "Mark hired" → enter the salary → the fee is calculated (₹4,999 fixed below ₹3 L/yr).
 All purchases are demo-only. Real payments need a gateway such as Razorpay.
+
+## v13 — Locations, app languages, safety & convenience
+- **Locations:** companies set a head-office city, **multiple job cities** and a work mode (on-site/hybrid/remote). Candidates set their current city, **all the cities they can work in**, and whether they'll relocate. Matching scores each profile as Same city / Open to your city / Willing to relocate / Remote fit / Different city, and every card shows "📍 city · can work in … · ✈ relocate". 150+ Indian and international cities, and any city can be typed.
+- **App in 14 languages:** English, Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Kannada, Malayalam, Punjabi, Urdu, Spanish, French, Arabic (right-to-left for Urdu and Arabic). Covers the main menus and buttons; the rest of the text is still English. The translations need a native-speaker review before launch.
+- **Shortlist (★)** and a "Shortlist only" filter.
+- **Report profile (⚑):** hides the profile and logs it for moderation.
+- **Saved searches & alerts (🔔):** save a role + cities + mode and re-run it in one click.
+- **Chat after a mutual match (💬),** with an anti-scam warning.
+- **Dark mode (◐)** and a **larger text (A+)** option for accessibility.
