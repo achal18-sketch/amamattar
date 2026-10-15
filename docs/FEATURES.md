@@ -80,3 +80,23 @@ for pitch/timing, scored separately and audited for bias).
 | **30-60-90 onboarding plan** | A personalised first-90-days plan built from this hire's growth areas. |
 | **Reference-check script** | Legally safe questions that check this candidate's specific claims. |
 | **First-year growth projection** | A labelled hypothesis covering ramp-up time, where they'll need support and which manager style suits them best. |
+
+## v6 — 585+ roles, confidence & experience, anti-cheat engine
+**Catalog:** 38 fields, 585 preset roles (plus any typed title). The interviewer and scorer work as experts in the chosen field.
+
+**Confidence & experience (live):** worked out each answer from the *content*: specificity, ownership ("I led/decided"), concrete numbers and decisiveness vs. hedging. It shows answer confidence, a running average and an experience estimate. It deliberately does **not** read emotion from the face or voice, because that is banned for hiring under EU AI Act Art. 5(1)(f) and is scientifically unreliable.
+
+**Anti-cheat engine: detecting external AI helpers**
+| Signal | How |
+|---|---|
+| Hidden AI listening & whispering answers | Background-voice detector: speech energy on the mic while the candidate isn't answering and Ava isn't speaking |
+| Audio piped to another app/AI | Virtual audio device detection (VB-Cable, Voicemeeter, BlackHole, Loopback…) |
+| Fake/overlay camera | Virtual camera detection (OBS, ManyCam, Snap Camera, DroidCam, mmhmm…) |
+| Copilot window on another screen | Second-monitor detection (`screen.isExtended`), focus-loss/overlay detection, tab switches |
+| Secure mode | Required full-screen + entire-screen share; exiting or stopping the share is flagged |
+| Answers typed by a tool or pasted from chat | Keystroke forensics: text appearing without keystrokes, machine-uniform key rhythm, paste events |
+| AI-written answers | Style detector (AI phrases, list structure, filler-free polish) + interviewer AI judgement |
+| Relay pattern | Long silent pause, then a long polished answer with zero fillers (typical of reading an AI reply) |
+| Consistency traps | The interviewer asks personal follow-ups only the real person could answer instantly; contradictions are flagged |
+
+All signals feed a 0–100 risk meter and a clickable integrity timeline in the report (jumps to the recording). **They never auto-reject**; high risk sends the case to a human. A browser can't see a phone or second laptop held off camera. The background-voice detector and consistency traps are the main defence there, and production should add server-side gaze/face models and a proctoring desktop agent.
