@@ -114,3 +114,10 @@ All signals feed a 0–100 risk meter and a clickable integrity timeline in the 
 ## v8 — 72,000+ jobs worldwide, yearly company pricing
 - Job search across **72,007 titles** (from the MIT-licensed list in `data/`, plus the presets). Results appear as you type, each tagged with its auto-detected field; picking one sets the interview format.
 - Company plans are now **billed yearly** and cost about 8–9% more: Starter ₹64,999/yr, Pro ₹1,94,999/yr, Enterprise from ₹9,99,999/yr. Job-seeker plans stay monthly.
+
+## v9 — Human-like interviewer, music & audition studio
+- **Animated interviewer:** 5 looks (Ava, Sam, Riya, Leo, Mia) that blink, lip-sync to the voice, move slightly while talking and nod after each answer. An **"AI" badge always stays visible**: disclosure is required by EU AI Act Art. 50 and US state laws, and pretending to be human would expose the platform to fraud claims.
+- **Expressive voice:** pick any voice installed on the device; warm / neutral / energetic styles change pace and pitch.
+- **Empathy:** the interviewer acknowledges feelings the candidate *says out loud* ("I'm nervous"), uses their own words back and keeps a natural, human manner. "I need a moment" pauses kindly. It never reads emotion from face or voice: that is banned in hiring (EU AI Act Art. 5(1)(f)) and unreliable.
+- **Calm music:** optional ambient music generated live, which fades down automatically while the interviewer speaks.
+- **Audition studio** (performing-arts roles): backing tracks in any key and tempo (ballad, pop, metronome, tanpura drone) plus a live pitch meter showing note, cents off and % in tune. The report adds a pitch analysis; artistry and expression are left to a human judge.
