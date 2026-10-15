@@ -153,3 +153,11 @@ All purchases are demo-only. Real payments need a gateway such as Razorpay.
 - **Saved searches & alerts (🔔):** save a role + cities + mode and re-run it in one click.
 - **Chat after a mutual match (💬),** with an anti-scam warning.
 - **Dark mode (◐)** and a **larger text (A+)** option for accessibility.
+
+## v14 — "Describe who you need", tutor price update, more features
+- **Describe who you need:** at the top of Job setup and in Talent Match. Employers write a sentence ("maths tutor for my Class 9 and 10 kids at home in Pune, Hindi or English") and the app picks the **role, field, levels/classes, work type, cities, languages, experience and budget**. It uses the AI when connected, otherwise built-in keyword rules plus a search of all 72,000 titles. The long role list is now folded away under "Selected role — change it manually".
+- **Tutor plans up ~15–25%:** parent contact ₹349 (was ₹299), match pack ₹899 (₹799), demo class ₹129 (₹99), Tutor Pro ₹249/mo or ₹2,499/yr (₹199 / ₹1,999), Premium ₹599/mo or ₹5,999/yr (₹499 / ₹4,999), commission 12% (10%), school/coaching ₹3,499/mo or ₹34,999/yr (₹2,999 / ₹29,999).
+- **🔔 Notifications centre:** interest accepted, chat replies, referral rewards, ratings.
+- **🎁 Refer & earn:** a personal code and link; 5 credits for each paying referral.
+- **⬇ Export shortlist to CSV.**
+- **★ Tutor ratings** from parents after a contact.
