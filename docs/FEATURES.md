@@ -206,3 +206,9 @@ All purchases are demo-only. Real payments need a gateway such as Razorpay.
 
 ## v21 — Ratings removed
 All rating and review features are removed: the Ratings & reviews card, the ★ buttons on candidate, worker, student, tutor and job cards, tutor and company star scores, and the "Rate company" / "★ Rate" buttons. The v8 tutor ratings and v19 company reviews are gone too. Kept: ⚑ Report job and ⚑ Report profile (safety, not ratings), the ☆/★ shortlist, and the support-staff roles from v20.
+
+## v22 — Ratings kept only for employees, tutors and parents
+- **Employees:** companies rate candidates/employees with the ★ button on each profile card (average and count shown).
+- **Tutors:** each tutor card shows a ★ score; after contacting a tutor, parents can "★ Rate tutor".
+- **Parents / families:** the Tutor view has a "Tutors: rate a parent / family" form (stars + short review) and a list of rated families.
+- No ratings for companies, household workers, students, colleges or recruiters.
