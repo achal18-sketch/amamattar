@@ -64,7 +64,7 @@ html.big body{font-size:17px}
 </style>
 
 <header><b>◆ TalentCore AI</b>
-<nav id="nav"><button data-v="jobs" class="on">1 · Job setup</button><button data-v="interview" class="ai-only">2 · Live interview</button><button data-v="report" class="ai-only">3 · Report</button><button data-v="pipeline" class="ai-only">4 · Pipeline</button><button data-v="match">5 · Talent Match ❤</button></nav>
+<nav id="nav"><button data-v="jobs" class="on">1 · Job setup</button><button data-v="interview" class="ai-only">2 · Live interview</button><button data-v="report" class="ai-only">3 · Report</button><button data-v="pipeline" class="ai-only">4 · Pipeline</button><button data-v="match">5 · Talent Match ❤</button><button data-v="admin">6 · 📊 Admin</button></nav>
 <span class="note" id="aiStatus">AI: connecting…</span>
 <span class="row" style="margin-left:auto;gap:6px"><label for="uiLang" style="margin:0">🌐</label><select id="uiLang" aria-label="App language" style="width:auto"></select>
 <button class="btn ghost" id="bellBtn" type="button" aria-label="Notifications">🔔 <span id="bellN">0</span></button><button class="btn ghost" id="themeBtn" type="button" aria-label="Toggle dark mode">◐</button><button class="btn ghost" id="textBtn" type="button" aria-label="Larger text">A+</button></span></header>
@@ -152,9 +152,23 @@ html.big body{font-size:17px}
 <section id="v-report" class="hide"><div id="reportBody" class="card"><p class="note">Finish an interview to see its report.</p></div></section>
 
 <!-- TALENT MATCH -->
+<section id="v-admin" class="hide">
+<div class="card"><h2>City launch dashboard</h2><p class="sub">Demo data plus everything done in this browser. Use it to decide which city to push next.</p><div style="overflow-x:auto"><table><thead><tr><th>City</th><th>Candidates</th><th>Tutors</th><th>Household workers</th><th>Hires</th><th>Revenue (excl. GST)</th><th>Status</th></tr></thead><tbody id="cityRows"></tbody></table></div></div>
+<div class="card"><h2>Investor dashboard</h2><p class="sub">Change any number to see monthly revenue, profit and profit after tax.</p>
+<div class="grid2"><div>
+<label>Paying companies</label><input id="iv_co" type="number" value="3000"><label>Average company plan (₹/month)</label><input id="iv_arpu" type="number" value="3000">
+<label>Mid-level hires per month</label><input id="iv_h" type="number" value="400"><label>Average hiring fee (₹)</label><input id="iv_fee" type="number" value="30000">
+<label>Junior hires per month (₹4,999–5,999 each)</label><input id="iv_j" type="number" value="1000"><label>Pay-as-you-go revenue (₹ lakh/month)</label><input id="iv_payg" type="number" value="25">
+</div><div>
+<label>Paying job seekers</label><input id="iv_js" type="number" value="40000"><label>Average job-seeker spend (₹/month)</label><input id="iv_jsa" type="number" value="200">
+<label>Tutors + household revenue (₹ lakh/month)</label><input id="iv_th" type="number" value="30"><label>Team size</label><input id="iv_team" type="number" value="120"><label>Average cost per employee (₹/month)</label><input id="iv_sal" type="number" value="100000">
+<label>Marketing (₹ lakh/month)</label><input id="iv_mkt" type="number" value="80"><label>Other fixed costs (₹ lakh/month)</label><input id="iv_oth" type="number" value="25"><label>Income-tax rate (%)</label><input id="iv_tax" type="number" value="25.17">
+</div></div>
+<div class="kpi" id="ivOut" style="margin-top:14px"></div><p class="note">Estimates only. GST is collected from customers and excluded. Per-sale costs are taken as 5% of revenue.</p></div>
+</section>
 <section id="v-match" class="hide">
 <div class="card"><div class="row" style="justify-content:space-between"><div><h2>Talent Match</h2><p class="sub" style="margin:0">Profiles and jobs matched by AI. You see more details on a paid plan. Contact details are only shared once <b>both sides</b> accept.</p></div>
-<div class="row"><span class="note">I am a</span><button class="btn" id="asCo">🏢 Company</button><button class="btn ghost" id="asCand">👤 Job seeker</button><button class="btn ghost" id="asTutor">📚 Tutor / parent</button></div></div></div>
+<div class="row"><span class="note">I am a</span><button class="btn" id="asCo">🏢 Company</button><button class="btn ghost" id="asCand">👤 Job seeker</button><button class="btn ghost" id="asTutor">📚 Tutor / parent</button><button class="btn ghost" id="asHouse">🏠 Household help</button><button class="btn ghost" id="asCampus">🎓 College / campus</button></div></div></div>
 <div class="card"><div class="row" style="justify-content:space-between"><h3 id="planTitle" style="margin:0">Plans &amp; pricing</h3>
 <div class="row"><div class="chips" id="billChips"><button type="button" data-b="m" aria-pressed="false">Monthly</button><button type="button" data-b="y" aria-pressed="true">Yearly — 2 months free 🎁</button></div><label style="margin:0"><input type="checkbox" id="adminMode" style="width:auto"> ⚙ Admin: show / hide plans</label></div></div>
 <div class="chips" id="planTabs" style="margin:12px 0"></div>
@@ -163,9 +177,14 @@ html.big body{font-size:17px}
 <div id="purchases" class="note" style="margin-top:6px"></div></div>
 
 <div id="coView">
+<div class="card" id="trustCard"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Trust &amp; alerts</h3><span id="coBadges"></span></div>
+<div class="grid2" style="margin-top:8px"><div><label>Company GSTIN or CIN (verified privately — never shown)</label><div class="row" style="flex-wrap:nowrap"><input id="coGst" placeholder="e.g. 27ABCDE1234F1Z5" style="flex:1"><button class="btn ghost" id="coVerify" type="button">Verify</button></div><p class="note" id="coVerNote" style="margin:4px 0 0"></p></div>
+<div><label>WhatsApp alerts</label><div class="row" style="flex-wrap:nowrap"><input id="coWa" placeholder="WhatsApp number, e.g. 98xxxxxx10" style="flex:1"><label style="margin:0"><input type="checkbox" id="coWaOn" style="width:auto"> On</label></div><p class="note" style="margin:4px 0 0">Interest accepted, chat replies and interview reminders arrive on WhatsApp.</p></div></div>
+<div class="ev" id="firstFree" style="border-color:var(--ok);margin-top:10px">🎁 <b>Your first hire is free</b> — no hiring fee on your first successful hire.</div>
+<div class="ev" style="margin-top:6px">⚡ <b>72-hour reply promise:</b> companies that update every accepted candidate within 72 hours get the "Fast responder" badge and rank higher.</div></div>
 <div class="card"><h3>Post a requirement <span class="note">— company name optional</span></h3>
 <label for="mNeed"><b>Describe who you need</b> <span class="note">— we fill the role, cities, experience and budget</span></label>
-<div class="row" style="flex-wrap:nowrap"><input id="mNeed" placeholder="e.g. Need 2 call-centre agents in Indore or remote, Hindi speaking, 1+ year, up to 3 lakh" style="flex:1"><button class="btn" id="mNeedBtn" type="button">✨ Fill for me</button></div><p class="note" id="mNeedOut" style="margin:4px 0 0"></p><div class="grid2"><div><label>Display as</label><input id="mCo" placeholder="e.g. 'Fast-growing fintech' (blank = Confidential company)"><label>Role</label><input id="mRole" autocomplete="off" value="Senior Backend Engineer"></div><div><label>Salary budget (₹ LPA)</label><input id="mBud" type="number" value="35"><label>Min experience (yrs)</label><input id="mExp" type="number" value="4"></div></div>
+<div class="row" style="flex-wrap:nowrap"><input id="mNeed" placeholder="e.g. Need 2 call-centre agents in Indore or remote, Hindi speaking, 1+ year, up to 3 lakh" style="flex:1"><button class="btn" id="mNeedBtn" type="button">✨ Fill for me</button></div><p class="note" id="mNeedOut" style="margin:4px 0 0"></p><div class="grid2"><div><label>Display as</label><input id="mCo" placeholder="e.g. 'Fast-growing fintech' (blank = Confidential company)"><label>Role</label><input id="mRole" autocomplete="off" value="Senior Backend Engineer"></div><div><label>Salary budget (₹ LPA)</label><input id="mBud" type="number" value="35" min="1" required aria-describedby="budNote"><span class="note" id="budNote">Salary is required — jobs with salary get far more replies.</span><label>Min experience (yrs)</label><input id="mExp" type="number" value="4"></div></div>
 <div class="grid2"><div><label>Company location (head office)</label><input id="mHQ" list="citylist" value="Pune"></div><div><label>Work mode</label><select id="mMode"><option>On-site</option><option selected>Hybrid</option><option>Remote</option></select></div></div>
 <label>Job location(s) — the role can be in one or more cities</label><div class="cityBox" id="mCities"></div>
 <div class="row" style="margin-top:6px"><label style="margin:0"><input type="checkbox" id="mReloc" checked style="width:auto"> Include people from other cities who are willing to relocate</label><label style="margin:0"><input type="checkbox" id="mShort" style="width:auto"> ★ Shortlist only</label><button class="btn ghost" id="mExport" type="button">⬇ Export shortlist (CSV)</button></div>
@@ -185,6 +204,22 @@ html.big body{font-size:17px}
 <div class="card"><h3>Tutors near you</h3><div id="tutors" class="kpi" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))"></div></div>
 <p class="note">Are you a tutor? Choose a Tutor plan above to get listed first and receive unlimited parent leads.</p>
 </div>
+<div id="houseView" class="hide">
+<div class="card"><h3>Find household help</h3><div class="grid2"><div><label>I need a</label><select id="hType"><option>Nanny / babysitter</option><option>Cook</option><option>Driver</option><option>Elderly care</option><option>Housekeeper / maid</option><option>Gardener</option><option>Security guard</option><option>Patient care attendant</option></select><label>City</label><select id="hCity"></select></div>
+<div><label>Timing</label><select id="hShift"><option>Full day</option><option>Morning</option><option>Evening</option><option>Live-in (24 hrs)</option><option>Part-time / hourly</option></select><label>Language</label><select id="hLang"><option>Any</option><option>Hindi</option><option>English</option><option>Marathi</option><option>Tamil</option><option>Bengali</option><option>Kannada</option><option>Telugu</option><option>Malayalam</option></select></div></div>
+<div class="row" style="margin-top:10px"><button class="btn" id="hFind" type="button">🔎 Show verified workers</button><span class="note">Contact ₹199 + GST · 3 shortlisted ₹499 + GST · Police verification ₹599 + GST</span></div></div>
+<div class="card"><h3>Workers near you</h3><div id="workers" class="kpi" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))"></div></div></div>
+<div id="campusView" class="hide">
+<div class="card"><h3>🎓 For colleges — upload a student batch</h3><p class="note">Paste one student per line: Name, Course/branch, CGPA or %, City, Graduating year. Free for colleges.</p>
+<textarea id="cBatch" style="min-height:110px">Asha Patil, B.Tech CSE, 8.4, Pune, 2027
+Rohit Verma, B.Com, 72%, Indore, 2027
+Neha Iyer, B.Sc Nursing, 81%, Kochi, 2027
+Faiz Khan, BBA, 7.6, Lucknow, 2027
+Divya Rao, ITI Electrician, 78%, Hyderabad, 2027</textarea>
+<div class="row" style="margin-top:8px"><input id="cCollege" placeholder="College name" value="Demo College of Engineering" style="flex:1"><button class="btn" id="cUpload" type="button">Upload batch</button></div></div>
+<div class="card"><h3>Student pool <span class="note" id="cCount"></span></h3><div style="overflow-x:auto"><table><thead><tr><th>Name</th><th>Course</th><th>Score</th><th>City</th><th>Year</th><th>College</th></tr></thead><tbody id="cRows"></tbody></table></div></div>
+<div class="card"><h3>🏢 For companies — run a campus drive</h3><div class="grid2"><div><label>Roles</label><input id="dRoles" value="Graduate Engineer Trainee, Sales Trainee"><label>Courses</label><input id="dCourses" value="B.Tech, B.Com, BBA"></div><div><label>Drive date</label><input id="dDate" type="date"><label>Mode</label><select id="dMode"><option>Online (Google Meet)</option><option>On campus</option><option>At our office</option></select></div></div>
+<div class="row" style="margin-top:10px"><button class="btn" id="dCreate" type="button">Schedule campus drive · ₹19,999 + GST per season</button></div><div id="drives" style="margin-top:10px"></div></div></div>
 <div id="candView" class="hide">
 <div class="card"><h3>My job profile</h3><div class="grid2"><div>
 <label>Headline</label><input id="pHead" value="Backend engineer · payments & distributed systems">
@@ -203,8 +238,8 @@ html.big body{font-size:17px}
 <label>Companies to block from seeing me (e.g. my current employer)</label><input id="pBlock" placeholder="comma-separated">
 </div></div>
 <div class="row" style="margin-top:12px"><button class="btn" id="pSave">Post / update my profile</button><button class="btn ghost" id="pCoach">✨ AI profile coach</button><span class="note" id="pNote"></span></div><div id="pCoachOut" class="note" style="white-space:pre-wrap;margin-top:8px"></div></div>
-<div class="card"><h3>Interests from companies</h3><div id="inbox"></div></div>
-<div class="card"><h3>Jobs matched for you</h3><div id="jobsFor" class="kpi" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))"></div></div>
+<div class="card"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Interests from companies</h3><label style="margin:0"><input type="checkbox" id="cWaOn" style="width:auto"> 📲 WhatsApp alerts</label></div><div id="inbox" style="margin-top:8px"></div></div>
+<div class="card"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Jobs matched for you</h3><label style="margin:0">Min salary (₹ LPA) <input id="cMinSal" type="number" value="0" style="width:90px"></label></div><p class="note">Every job shows its salary. Never pay anyone to apply — report it with ⚑.</p><div id="jobsFor" class="kpi" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))"></div></div>
 </div>
 </section>
 
@@ -71985,7 +72020,7 @@ let store=[];try{store=JSON.parse(localStorage.getItem('tc_pipe')||'[]')}catch(e
 const save=()=>{try{localStorage.setItem('tc_pipe',JSON.stringify(store))}catch(e){}};
 
 // ---------- nav ----------
-function show(v){document.querySelectorAll('main>section').forEach(s=>s.classList.toggle('hide',s.id!=='v-'+v));document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));if(v==='pipeline')renderPipe()}
+function show(v){document.querySelectorAll('main>section').forEach(s=>s.classList.toggle('hide',s.id!=='v-'+v));document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));if(v==='pipeline')renderPipe();if(v==='admin'&&window.renderAdmin)renderAdmin()}
 $('#nav').onclick=e=>{if(e.target.dataset.v)show(e.target.dataset.v)};
 
 // ---------- AI ----------
@@ -72471,8 +72506,10 @@ const CATALOG={
  tutor:{t:'📚 Tutors & parents',sub:true,items:[P('pcontact','Parent · tutor contact',null,null,['One verified tutor'],{once:349}),P('ppack','Parent · match pack',null,null,['3 tutors shortlisted for your class, subject & area'],{once:899}),P('pdemo','Parent · demo class',null,null,['Adjusted against the first month'],{once:129}),P('tfree','Tutor · Free',0,0,['Profile','2 parent leads / month']),P('tpro','Tutor · Pro',249,2499,['Shown first','Unlimited leads','Verified badge'],{tag:'For tutors'}),P('tprem','Tutor · Premium',599,5999,['Top of your area','Booking calendar','Reviews highlighted']),P('tcomm','Tutor · Commission',null,null,['No upfront fee','12% of the first month only'],{fee:1}),P('school','School / coaching centre',3499,34999,['Unlimited teacher contacts'])]},
  gig:{t:'Freelance & gig',items:[P('flfeat','Featured freelancer',149,1499,['Freelancer profile is free; this features it']),P('hourly','Hourly / daily-wage job post',null,null,['Per post'],{once:199}),P('gigfee','Gig commission',null,null,['5–10% when payment goes through the app'],{fee:1}),P('trade','Verified trade worker',99,999,['Electrician, plumber and more — top listing'])]},
  extras:{t:'Extras & partners',items:[P('ads','Course & college ads',null,null,['₹5,000–25,000 per campaign'],{once:5000}),P('event','Sponsored hiring event',null,null,['From ₹15,000'],{once:15000}),P('report','Salary & hiring report',null,null,['Per report'],{once:4999}),P('white','White-label app',null,49999,['For agencies & job boards','Per year, and up'],{from:1}),P('ats','Hiring-software integration',2999,29999,['Included in Enterprise']),P('aiint','AI interviewer add-on',null,null,['₹99–150 per screened candidate','Or a pack of 50 for ₹4,999'],{once:4999,soon:1})]}};
+CATALOG.house={t:'🏠 Household help',sub:true,items:[P('hcontact','Worker contact',null,null,['One verified worker','Phone & address check'],{once:199}),P('hpack','Shortlist pack',null,null,['3 verified workers for your need'],{once:499}),P('hpolice','Police verification',null,null,['Done through the local police','Report in 5–7 days'],{once:599}),P('hreplace','Replacement guarantee',null,null,['Free replacement within 30 days'],{once:999,tag:'Popular'}),P('hworker','Worker profile',0,0,['Free forever for workers'])]};
+CATALOG.campusc={t:'🎓 Campus',sub:true,items:[P('cfree','College listing',0,0,['Free for colleges','Unlimited student uploads']),P('cprem','College premium',2999,29999,['Placement dashboard','Company invites','Featured college badge']),P('cdrive','Campus drive (companies)',null,null,['One hiring season','Unlimited student profiles','Bulk interview scheduling'],{once:19999})]};
 if(!AI_INTERVIEWER)CATALOG.extras.items=CATALOG.extras.items.filter(x=>x.id!=='aiint');
-const LAUNCH=new Set(['payg:urgent','payg:assist','payg:bgv','co:free','co:basic','co:starter','co:pro','payg:unlock1','payg:pack6','payg:jobpost','payg:hirefee','cand:free','cand:verified','cand:boost','cand:gold','tutor:pcontact','tutor:ppack','tutor:tpro']);
+const LAUNCH=new Set(['house:hcontact','house:hpack','house:hpolice','house:hreplace','house:hworker','campusc:cfree','campusc:cprem','campusc:cdrive','payg:urgent','payg:assist','payg:bgv','co:free','co:basic','co:starter','co:pro','payg:unlock1','payg:pack6','payg:jobpost','payg:hirefee','cand:free','cand:verified','cand:boost','cand:gold','tutor:pcontact','tutor:ppack','tutor:tpro']);
 const VIEW_LIMIT={free:0,trial:10,basic:30,starter:75,growth:200,pro:1e9,ent:1e9,agency:1e9,campus:1e9};
 const inr=n=>'₹'+Number(n).toLocaleString('en-IN');
 const M={role:'co',plan:{co:'free',cand:'free',tutor:'tfree'},views:0,sent:[],me:null,credits:0,buys:[],hires:[],bill:'y',tab:null,shown:null,tUnlocked:[]};
@@ -72504,8 +72541,8 @@ const GST_RATE=0.18,gstOf=n=>Math.round(n*GST_RATE),withGst=n=>n+gstOf(n);
 const gstLine=v=>v>0?`<span class="note" style="display:block">+ 18% GST ${inr(gstOf(v))} = <span style="font-weight:700;color:var(--ink)">${inr(withGst(v))}</span> total</span>`:'';
 function priceLine(it){if(it.fee)return '<b>Pay on success</b><span class="note" style="display:block">+ 18% GST on the fee</span>';if(it.once!=null&&it.m==null&&it.y==null)return `<b>${inr(it.once)}</b><span class="note">one-time</span>${gstLine(it.once)}`;
  const y=M.bill==='y'&&it.y!=null,v=y?it.y:(it.m??it.y);if(v==null)return `<b>${inr(it.once)}</b>${gstLine(it.once)}`;if(v===0)return '<b>₹0</b>';return `<b>${it.from?'From ':''}${inr(v)}</b><span class="note">${(y||it.m==null)?'/ year':'/ month'}${y&&it.m?' · ≈ '+inr(Math.round(it.y/12))+'/mo · <span style="font-weight:700;color:var(--ok)">'+inr(it.m*12-it.y)+' saved</span>':''}</span>${gstLine(v)}`}
-const ROLE_CATS={co:['co','payg','extras'],cand:['cand','gig'],tutor:['tutor']};
-const ROLE_TITLE={co:'Plans & pricing — for companies',cand:'Plans & pricing — for job seekers',tutor:'Plans & pricing — for tutors & parents'};
+const ROLE_CATS={co:['co','payg','extras'],cand:['cand','gig'],tutor:['tutor'],house:['house'],campus:['campusc']};
+const ROLE_TITLE={co:'Plans & pricing — for companies',cand:'Plans & pricing — for job seekers',tutor:'Plans & pricing — for tutors & parents',house:'Plans & pricing — household help',campus:'Plans & pricing — colleges & campus hiring'};
 function renderPlans(){const admin=$('#adminMode').checked;const cats=(ROLE_CATS[M.role]||['co']).filter(c=>admin||CATALOG[c].items.some(it=>isShown(c,it.id)));
  $('#planTitle').textContent=ROLE_TITLE[M.role]||'Plans & pricing';$('#planTabs').style.display=cats.length>1?'':'none';
  if(!M.tab||!cats.includes(M.tab))M.tab=({co:'co',cand:'cand',tutor:'tutor'})[M.role];if(!cats.includes(M.tab))M.tab=cats[0];
@@ -72535,10 +72572,11 @@ $('#planTabs').onclick=e=>{const b=e.target.closest('[data-c]');if(b){M.tab=b.da
 [...$('#billChips').children].forEach(x=>x.setAttribute('aria-pressed',x.dataset.b===M.bill));
 $('#billChips').onclick=e=>{const b=e.target.closest('[data-b]');if(!b)return;M.bill=b.dataset.b;[...$('#billChips').children].forEach(x=>x.setAttribute('aria-pressed',x.dataset.b===M.bill));msave();renderPlans()};
 $('#adminMode').onchange=renderPlans;
-function setRole(r){M.role=r;M.tab=null;msave();$('#asCo').className='btn'+(r==='co'?'':' ghost');$('#asCand').className='btn'+(r==='cand'?'':' ghost');$('#asTutor').className='btn'+(r==='tutor'?'':' ghost');$('#tutorView').classList.toggle('hide',r!=='tutor');$('#coView').classList.toggle('hide',r!=='co');$('#candView').classList.toggle('hide',r!=='cand');renderMatch()}
-$('#asCo').onclick=()=>setRole('co');$('#asTutor').onclick=()=>setRole('tutor');$('#asCand').onclick=()=>setRole('cand');
+function setRole(r){M.role=r;M.tab=null;msave();const B={co:'#asCo',cand:'#asCand',tutor:'#asTutor',house:'#asHouse',campus:'#asCampus'},V={co:'#coView',cand:'#candView',tutor:'#tutorView',house:'#houseView',campus:'#campusView'};
+ for(const k in B){$(B[k]).className='btn'+(k===r?'':' ghost');$(V[k]).classList.toggle('hide',k!==r)}renderMatch()}
+$('#asCo').onclick=()=>setRole('co');$('#asHouse').onclick=()=>setRole('house');$('#asCampus').onclick=()=>setRole('campus');$('#asTutor').onclick=()=>setRole('tutor');$('#asCand').onclick=()=>setRole('cand');
 function allProfiles(){return M.me?[M.me,...SEED]:SEED}
-function renderProfiles(){const role=$('#mRole').value,bud=+$('#mBud').value,minE=+$('#mExp').value,coName=$('#mCo').value.trim();
+function renderProfiles(){if(!(+$('#mBud').value>0)){$('#profiles').innerHTML='<p class="note" style="color:var(--bad)">Please add a salary budget — jobs without salary are not shown to candidates.</p>';return}const role=$('#mRole').value,bud=+$('#mBud').value,minE=+$('#mExp').value,coName=$('#mCo').value.trim();
  let ps=allProfiles().filter(p=>!M.reported.some(r=>r.id===p.id)).filter(p=>!$('#mShort').checked||M.short.includes(p.id)).filter(p=>$('#mReloc').checked||locFit(p).s>0).filter(p=>$('#mQuiet').checked||p.status!=='employed').filter(p=>!(p.block||[]).some(b=>b&&coName.toLowerCase().includes(b.toLowerCase())));
  ps=ps.map(p=>{const L=locFit(p);return{...p,loc:L,m:Math.max(5,Math.min(99,matchPct(p,role,bud,minE)+L.s-5))}}).sort((a,b)=>b.m-a.m);const plan=M.plan.co,free=plan==='free'&&M.credits===0;if(free)ps=ps.slice(0,5);
  $('#quota').textContent=free?'· Free plan: details hidden — choose a plan or buy credits':coLimit()>=1e9?'· unlimited':`· ${M.views}/${coLimit()} plan unlocks used · ${M.credits} credits`;
@@ -72564,18 +72602,20 @@ window.reply=(i,st)=>{M.inbox[i].state=st;msave();renderMatch()};
 $('#pCoach').onclick=async()=>{if(M.plan.cand!=='plat'){$('#pCoachOut').textContent='AI profile coach is on the Platinum plan.';return}$('#pCoachOut').textContent='Coaching…';
  $('#pCoachOut').textContent=(await ask(`You are a career coach and expert in ${$('#pField').value}. Improve this job profile so companies want to interview this person. Give: a stronger headline, 5 skills to add or show, a fair salary range for "${$('#pRole').value}" with ${$('#pExp').value} years (India, ₹ LPA, with reasoning) versus their expectation of ₹${$('#pExpSal').value} LPA, and 3 tips to stay discreet while employed. Profile: ${$('#pHead').value}; skills ${$('#pSkills').value}. Plain text, short.`))||'Tip: put a measurable achievement in your headline, list your top 5 tools, and take an AI-verified interview to earn the ✔ badge.'};
 function renderCand(){const pl=M.plan.cand;
- $('#inbox').innerHTML=!M.me?'<p class="note">Post your profile to start getting interests.</p>':(M.inbox||[]).map((x,i)=>`<div class="sig"><span>💌 <b>${esc(x.co)}</b> is interested — ${esc(x.role)} · budget ${pl==='free'?'🔒 (Gold)':'₹'+x.bud+' LPA'}</span><span>${x.state==='new'?`<button class="btn" onclick="reply(${i},'accepted')">Accept</button> <button class="btn ghost" onclick="reply(${i},'declined')">Decline</button>`:x.state}</span></div>`).join('')+(pl==='free'?'<p class="note">Free plan: 3 interests/month. Gold shows budgets and which companies viewed you.</p>':`<p class="note">👁 ${pl==='plat'?14:6} companies viewed your profile this week${pl==='plat'?' · you appear above Gold profiles':''}.</p>`);
+ (M.inbox||[]).forEach(x=>{x.at=x.at||Date.now()});$('#inbox').innerHTML=!M.me?'<p class="note">Post your profile to start getting interests.</p>':(M.inbox||[]).map((x,i)=>`<div class="sig"><span>💌 <b>${esc(x.co)}</b> <span class="chip">✔ Verified</span> <span class="chip">⚡ replies in 72 h</span> is interested — ${esc(x.role)} · budget ${pl==='free'?'🔒 (Gold)':'₹'+x.bud+' LPA'}</span><span>${x.state==='new'?`<button class="btn" onclick="reply(${i},'accepted')">Accept</button> <button class="btn ghost" onclick="reply(${i},'declined')">Decline</button>`:x.state}</span></div>`).join('')+(pl==='free'?'<p class="note">Free plan: 3 interests/month. Gold shows budgets and which companies viewed you.</p>':`<p class="note">👁 ${pl==='plat'?14:6} companies viewed your profile this week${pl==='plat'?' · you appear above Gold profiles':''}.</p>`);
  const role=$('#pRole').value;const jobs=[[role,'Confidential company',1.1],[role,'Global bank (anonymous)',1.25],[role,'Growth-stage startup',.95]];
- $('#jobsFor').innerHTML=jobs.map(([r,c,k])=>{const sal=Math.round((+$('#pExpSal').value||20)*k);return `<div><span class="chip">${Math.min(97,70+Math.round(k*15))}% match</span><b style="font-size:15px;margin-top:6px">${esc(r)}</b><div class="note">${esc(c)} · up to ₹${sal} LPA</div><button class="btn ghost ai-only" style="margin-top:8px" onclick="practiceFor('${esc(r)}')">Practice this interview</button></div>`}).join('')}
+ const minSal=+$('#cMinSal').value||0;const J=jobs.map(([r,c,k],i)=>({r,c,sal:Math.round((+$('#pExpSal').value||20)*k),min:Math.round((+$('#pExpSal').value||20)*k*.8),id:'j'+i,city:(M.myCities||['Pune'])[i%(M.myCities?.length||1)]})).filter(j=>j.sal>=minSal);
+ $('#jobsFor').innerHTML=J.map(j=>`<div><div class="row" style="justify-content:space-between"><span class="chip">${Math.min(97,70+j.sal%20)}% match</span><span class="chip" style="color:var(--ok)">✔ Verified company</span></div><b style="font-size:15px;margin-top:6px">${esc(j.r)}</b><div class="note">${esc(j.c)} · 📍 ${esc(j.city)}</div><div style="font-weight:600;margin:4px 0">₹${j.min}–${j.sal} LPA</div><div class="note">★ ${coRating(j.c)} · ⚡ Fast responder</div>
+ <div class="row" style="margin-top:8px"><button class="btn ghost" type="button" onclick="rateCo('${esc(j.c)}')">★ Rate company</button><button class="btn ghost" type="button" onclick="reportJob('${esc(j.c)}')" aria-label="Report fake job">⚑ Report job</button></div></div>`).join('')||'<p class="note">No jobs above that salary yet — lower the minimum or save a search.</p>'}
 window.practiceFor=r=>{$('#title').value=r;$('#practice').checked=true;show('jobs');$('#title').dispatchEvent(new Event('change'))};
-function renderMatch(){renderPlans();if(M.role==='co'){renderProfiles();renderHires();renderPipe2()}else if(M.role==='tutor')renderTutors();else renderCand()}
+function renderMatch(){renderPlans();if(M.role==='co'){renderProfiles();renderHires();renderPipe2();renderTrust()}else if(M.role==='tutor')renderTutors();else if(M.role==='house')renderWorkers();else if(M.role==='campus')renderCampus();else renderCand()}
 
 
 refreshLevels();
 // ---------- hiring-fee tracker ----------
 window.markHired=id=>{const p=allProfiles().find(q=>q.id===id);const def=Math.round((p?.expSal||5)*100000);const v=prompt('First-year salary offered (₹ per year):',def);if(v===null)return;const sal=Math.max(0,+String(v).replace(/[^\d]/g,''));
- const junior=sal>0&&sal<300000;const fee=junior?4999:Math.max(10000,Math.round(sal*0.0833));M.hires.push({id,role:p?.role||'',sal,fee,junior,at:Date.now()});msave();renderMatch()};
-function renderHires(){const h=M.hires;$('#hires').innerHTML=h.length?h.map(x=>`<div class="sig"><span>${esc(x.role)} · salary ${inr(x.sal)}${x.junior?' · junior fixed fee':' · 8.33% (min ₹10,000)'}</span><b>${inr(x.fee)} + GST ${inr(gstOf(x.fee))}</b></div>`).join('')+`<div class="sig"><span><b>Total fees due</b> <span class="note">(free replacement within 60 days)</span></span><b>${inr(h.reduce((a,x)=>a+x.fee,0))} + 18% GST ${inr(h.reduce((a,x)=>a+gstOf(x.fee),0))} = ${inr(h.reduce((a,x)=>a+withGst(x.fee),0))}</b></div>`+`<button class="btn ghost" type="button" onclick="invoice()" style="margin-top:8px">🧾 Download tax invoice</button>`:'<p class="note">Mark an accepted candidate as hired to calculate the fee.</p>'}
+ const junior=sal>0&&sal<300000;const free1=!M.firstHireUsed;const fee=free1?0:junior?4999:Math.max(10000,Math.round(sal*0.0833));M.firstHireUsed=true;M.hires.push({id,role:p?.role||'',sal,fee,junior,at:Date.now()});msave();renderMatch()};
+function renderHires(){const h=M.hires;$('#hires').innerHTML=h.length?h.map(x=>`<div class="sig"><span>${esc(x.role)} · salary ${inr(x.sal)}${x.fee===0?' · 🎁 first hire free':x.junior?' · junior fixed fee':' · 8.33% (min ₹10,000)'}</span><b>${inr(x.fee)} + GST ${inr(gstOf(x.fee))}</b></div>`).join('')+`<div class="sig"><span><b>Total fees due</b> <span class="note">(free replacement within 60 days)</span></span><b>${inr(h.reduce((a,x)=>a+x.fee,0))} + 18% GST ${inr(h.reduce((a,x)=>a+gstOf(x.fee),0))} = ${inr(h.reduce((a,x)=>a+withGst(x.fee),0))}</b></div>`+`<button class="btn ghost" type="button" onclick="invoice()" style="margin-top:8px">🧾 Download tax invoice</button>`:'<p class="note">Mark an accepted candidate as hired to calculate the fee.</p>'}
 // ---------- tutors & parents ----------
 const TUTORS=[['Anita K.','Mathematics','Class 6 – Class 10','Kothrud',8,4.8,'Home tuition'],['Rahul S.','Physics','Class 11 – Class 12 · JEE','Karve Nagar',6,4.7,'Either'],['Meera P.','English','Class 1 – Class 8','Kothrud',10,4.9,'Home tuition'],['Imran Q.','Chemistry','Class 9 – Class 12 · NEET','Online',5,4.6,'Online'],['Sneha D.','All subjects','Pre-school – Class 5','Warje',4,4.8,'Home tuition'],['Vikram T.','Mathematics','Class 9 – Class 12','Online',12,4.9,'Online'],['Priya R.','Hindi & Marathi','Class 1 – Class 10','Erandwane',7,4.7,'Either'],['Arjun M.','Computer Science','Class 8 – Undergraduate','Online',6,4.5,'Online']].map((t,i)=>({id:'t'+i,name:t[0],sub:t[1],cls:t[2],area:t[3],exp:t[4],rating:t[5],mode:t[6],fee:[3000,4500,2500,4000,2000,5000,2500,3500][i]}));
 function renderTutors(){if(!$('#tCity').options.length){$('#tCity').innerHTML=TCITY.map(c=>`<option>${c}</option>`).join('')+'<option>Other city…</option>'}const city=$('#tCity').value,sub=$('#tSub').value.toLowerCase(),mode=$('#tMode').value;
@@ -72685,7 +72725,7 @@ $('#mNeedBtn').onclick=async()=>{const t=$('#mNeed').value.trim();if(!t)return;$
 $('#mNeed').onkeydown=e=>{if(e.key==='Enter')$('#mNeedBtn').onclick()};
 // ================= NOTIFICATIONS =================
 M.notes=M.notes||[];
-function notify(t){M.notes.unshift({t,at:Date.now(),read:0});M.notes=M.notes.slice(0,50);msave();drawBell()}
+function notify(t){const wa=(M.role==='cand'?M.cWa:M.coWa)&&(M.role==='cand'?true:M.coWaNum);if(wa)t+=' · sent on WhatsApp';M.notes.unshift({t,at:Date.now(),read:0});M.notes=M.notes.slice(0,50);msave();drawBell()}
 function drawBell(){const n=M.notes.filter(x=>!x.read).length;$('#bellN').textContent=n;$('#bellList').innerHTML=M.notes.length?M.notes.map(x=>`<div class="sig"><span>${esc(x.t)}</span><span class="note">${new Date(x.at).toLocaleTimeString()}</span></div>`).join(''):'<p class="note">No notifications yet.</p>'}
 $('#bellBtn').onclick=()=>{M.notes.forEach(x=>x.read=1);msave();drawBell();$('#bellDlg').showModal()};$('#bellClose').onclick=()=>$('#bellDlg').close();drawBell();
 // ================= REFERRALS =================
@@ -72729,6 +72769,50 @@ window.scheduleMeet=id=>{const p=allProfiles().find(q=>q.id===id);const who=p?.q
  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//TalentCore//EN','BEGIN:VEVENT','UID:'+Date.now()+'@talentcore','DTSTAMP:'+f(new Date()),'DTSTART:'+f(st),'DTEND:'+f(en),'SUMMARY:Interview — '+(p?.role||'role')+' with '+who,'LOCATION:'+link,'DESCRIPTION:Live interview with the hiring team. Join: '+link,'END:VEVENT','END:VCALENDAR'].join('\r\n');
  const x=M.sent.find(s2=>s2.id===id);if(x){x.stage='Interview scheduled';x.stageAt=Date.now()}(M.chats[id]=M.chats[id]||[]).push({me:1,t:'Interview scheduled for '+st.toLocaleString('en-IN')+' — join: '+link});
  msave();notify('📅 Interview scheduled with '+who);dl(new Blob([ics],{type:'text/calendar'}),'interview.ics');renderMatch()};
+// ================= TRUST: VERIFIED COMPANY · WHATSAPP · 72-HOUR PROMISE · FIRST HIRE FREE =================
+const GSTIN_RE=/^\d{2}[A-Z]{5}\d{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/,CIN_RE=/^[LU]\d{5}[A-Z]{2}\d{4}[A-Z]{3}\d{6}$/;
+$('#coVerify').onclick=()=>{const v=$('#coGst').value.trim().toUpperCase();if(GSTIN_RE.test(v)||CIN_RE.test(v)){M.coVerified=v.slice(0,2)+'•••••'+v.slice(-3);msave();notify('✔ Company verified');$('#coVerNote').textContent='Format looks valid ✓ (demo — a live app checks it with the GST / MCA records).'}else{$('#coVerNote').textContent='That doesn’t look like a valid GSTIN (15 characters) or CIN (21 characters).'}renderTrust()};
+$('#coWaOn').onchange=()=>{M.coWa=$('#coWaOn').checked;M.coWaNum=$('#coWa').value.trim();msave();if(M.coWa)notify('📲 WhatsApp alerts on for '+(M.coWaNum||'your number'))};
+$('#coWa').onchange=()=>{M.coWaNum=$('#coWa').value.trim();msave()};
+$('#cWaOn').onchange=()=>{M.cWa=$('#cWaOn').checked;msave();if(M.cWa)notify('📲 WhatsApp job alerts on')};
+function respScore(){const acc=M.sent.filter(x=>x.state==='accepted');if(!acc.length)return null;const ok=acc.filter(x=>M.hires.some(h=>h.id===x.id)||(x.stageAt&&x.stageAt-(x.acceptedAt||x.stageAt)<=72*36e5)||(Date.now()-(x.acceptedAt||Date.now())<72*36e5)).length;return Math.round(ok/acc.length*100)}
+function renderTrust(){const r=respScore();$('#coBadges').innerHTML=(M.coVerified?'<span class="chip" style="color:var(--ok)">✔ Verified company</span>':'<span class="chip">Not verified yet</span>')+(r==null?'':r>=90?' <span class="chip" style="color:var(--ok)">⚡ Fast responder '+r+'%</span>':' <span class="chip" style="color:var(--warn)">Reply rate '+r+'% — update candidates within 72 h</span>');
+ $('#firstFree').classList.toggle('hide',!!M.firstHireUsed);if(M.coVerified)$('#coVerNote').textContent='Verified: '+M.coVerified;$('#coWaOn').checked=!!M.coWa;$('#coWa').value=M.coWaNum||'';$('#cWaOn').checked=!!M.cWa}
+// stamp accept time for the 72-hour clock
+setInterval(()=>{let ch=0;M.sent.forEach(x=>{if(x.state==='accepted'&&!x.acceptedAt){x.acceptedAt=Date.now();ch=1}});if(ch)msave()},1000);
+// ================= COMPANY REVIEWS & FAKE-JOB REPORTS =================
+M.coReviews=M.coReviews||{};M.jobReports=M.jobReports||[];
+function coRating(c){const r=M.coReviews[c]||[];return r.length?(r.reduce((a,b)=>a+b,0)/r.length).toFixed(1)+' ('+r.length+')':'new'}
+window.rateCo=c=>{const v=parseInt(prompt('Rate '+c+' 1–5 (after an interview or job)','4'));if(!(v>=1&&v<=5))return;(M.coReviews[c]=M.coReviews[c]||[]).push(v);msave();notify('⭐ Thanks for reviewing '+c);renderCand()};
+window.reportJob=c=>{const why=prompt('What is wrong with this job? (fake, asks for money, wrong salary, other)','asks for money');if(why===null)return;M.jobReports.push({c,why,at:Date.now()});msave();alert('Reported. Our team reviews every report within 24 hours. Remember: never pay to get a job.')};
+$('#cMinSal').addEventListener('input',()=>renderCand());
+// ================= HOUSEHOLD HELP =================
+const HTYPES=['Nanny / babysitter','Cook','Driver','Elderly care','Housekeeper / maid','Gardener','Security guard','Patient care attendant'];
+const HN=['Sunita','Ramesh','Lakshmi','Mohan','Geeta','Raju','Fatima','Joseph','Kamala','Santosh','Rekha','Anil','Meena','Babu','Shanti','Prakash'],HL=['Hindi','Marathi','Tamil','Bengali','Kannada','Telugu','Malayalam','English'];
+const WORKERS=[];TCITY.forEach((c,ci)=>HTYPES.forEach((t,ti)=>{for(let k=0;k<2;k++){const i=ci*16+ti*2+k;WORKERS.push({id:'w'+i,name:HN[i%HN.length]+' '+String.fromCharCode(65+(i%26))+'.',type:t,city:c,exp:1+(i%12),lang:HL[(ci+k)%HL.length],shift:['Full day','Morning','Evening','Live-in (24 hrs)','Part-time / hourly'][(ti+k)%5],pay:8000+((i*7)%9)*1500,police:i%3!==0,rating:+(4.2+(i%8)/10).toFixed(1)})}}));
+M.wUnlocked=M.wUnlocked||[];
+function renderWorkers(){if(!$('#hCity').options.length)$('#hCity').innerHTML=TCITY.map(c=>`<option>${c}</option>`).join('');const t=$('#hType').value,c=$('#hCity').value,sh=$('#hShift').value,lg=$('#hLang').value;
+ const L=WORKERS.filter(w=>w.type===t&&w.city===c).map(w=>({...w,m:(w.shift===sh?20:0)+(lg==='Any'||w.lang===lg?15:0)+(w.police?10:0)+w.rating})).sort((a,b)=>b.m-a.m);
+ $('#workers').innerHTML=L.map(w=>{const open=M.wUnlocked.includes(w.id);return `<div><div class="row" style="justify-content:space-between"><b>${esc(w.name)}</b><span class="chip">★ ${w.rating}</span></div><div class="note">${esc(w.type)} · ${w.exp} yrs · 🗣 ${esc(w.lang)}</div><div class="note">📍 ${esc(w.city)} · ${esc(w.shift)} · expects ${inr(w.pay)}/month</div>
+ <div style="margin:6px 0">${w.police?'<span class="chip" style="color:var(--ok)">✔ Police verified</span>':'<span class="chip">ID verified</span>'}</div>
+ ${open?'<span class="chip">✅ Contact shared (demo)</span>':`<button class="btn" onclick="hireWorker('${w.id}')">Contact ₹199 + GST</button>`}</div>`}).join('')||'<p class="note">No workers for this filter yet — try another timing or language.</p>'}
+window.hireWorker=id=>{M.wUnlocked.push(id);M.buys.push({n:'Household worker contact',p:199,g:gstOf(199),t:withGst(199)});msave();notify('🏠 Worker contact shared');renderMatch()};
+$('#hFind').onclick=renderWorkers;['hType','hCity','hShift','hLang'].forEach(i=>$('#'+i).addEventListener('change',renderWorkers));
+// ================= CAMPUS =================
+M.students=M.students||[];M.drives=M.drives||[];
+$('#cUpload').onclick=()=>{const col=$('#cCollege').value.trim()||'College';const rows=$('#cBatch').value.split('\n').map(l=>l.split(',').map(x=>x.trim())).filter(r=>r[0]);rows.forEach(r=>M.students.push({name:r[0],course:r[1]||'',score:r[2]||'',city:r[3]||'',year:r[4]||'',college:col}));msave();notify('🎓 '+rows.length+' students uploaded from '+col);renderCampus()};
+$('#dCreate').onclick=()=>{const d={roles:$('#dRoles').value,courses:$('#dCourses').value,date:$('#dDate').value||new Date(Date.now()+14*864e5).toISOString().slice(0,10),mode:$('#dMode').value};const ck=d.courses.toLowerCase().split(/,\s*/).filter(Boolean);d.eligible=M.students.filter(s2=>ck.some(k=>s2.course.toLowerCase().includes(k.toLowerCase()))).length;M.drives.push(d);M.buys.push({n:'Campus drive',p:19999,g:gstOf(19999),t:withGst(19999)});msave();notify('🎓 Campus drive scheduled for '+d.date+' · '+d.eligible+' eligible students invited');renderMatch()};
+function renderCampus(){$('#cCount').textContent=M.students.length?'· '+M.students.length+' students':'';$('#cRows').innerHTML=M.students.slice(-50).map(s2=>`<tr><td>${esc(s2.name)}</td><td>${esc(s2.course)}</td><td>${esc(s2.score)}</td><td>${esc(s2.city)}</td><td>${esc(s2.year)}</td><td>${esc(s2.college)}</td></tr>`).join('')||'<tr><td colspan="6" class="note">No students yet — a college uploads a batch above.</td></tr>';
+ $('#drives').innerHTML=M.drives.map(d=>`<div class="sig"><span>📅 ${esc(d.date)} · ${esc(d.roles)} · ${esc(d.mode)}</span><span>${d.eligible} eligible students invited</span></div>`).join('')}
+// ================= ADMIN: CITY DASHBOARD + INVESTOR CALCULATOR =================
+function renderAdmin(){const cities=[...new Set([...TCITY,...SEED.map(p2=>p2.city)])];const rev=c=>M.hires.filter(h=>{const p2=allProfiles().find(q=>q.id===h.id);return p2&&(p2.city===c)}).reduce((a,h)=>a+h.fee,0);
+ const rows=cities.map(c=>{const cand=SEED.filter(p2=>p2.city===c).length+M.students.filter(s2=>s2.city===c).length,tut=TUTORS.filter(t=>t.city===c).length,wk=WORKERS.filter(w=>w.city===c).length,h=M.hires.filter(x=>allProfiles().find(q=>q.id===x.id)?.city===c).length,r=rev(c);
+  const score=cand*2+tut+wk/4+h*10;return{c,cand,tut,wk,h,r,st:score>=12?'🟢 Live':score>=6?'🟡 Growing':'⚪ Launch next'}}).sort((a,b)=>b.cand+b.tut-(a.cand+a.tut));
+ $('#cityRows').innerHTML=rows.map(x=>`<tr><td>${esc(x.c)}</td><td>${x.cand}</td><td>${x.tut}</td><td>${x.wk}</td><td>${x.h}</td><td>${inr(x.r)}</td><td>${x.st}</td></tr>`).join('');calcInvestor()}
+function calcInvestor(){const v=id=>+$('#'+id).value||0;const rev=v('iv_co')*v('iv_arpu')+v('iv_h')*v('iv_fee')+v('iv_j')*5500+v('iv_payg')*1e5+v('iv_js')*v('iv_jsa')+v('iv_th')*1e5;
+ const cost=v('iv_team')*v('iv_sal')+v('iv_mkt')*1e5+v('iv_oth')*1e5+rev*0.05,pbt=rev-cost,tax=Math.max(0,pbt*v('iv_tax')/100),pat=pbt-tax;const cr=n=>(n/1e7).toFixed(2)+' Cr';
+ $('#ivOut').innerHTML=`<div>Revenue / month<b>₹${cr(rev)}</b></div><div>Costs / month<b>₹${cr(cost)}</b></div><div>Profit before tax<b>₹${cr(pbt)}</b></div><div>Profit after tax<b style="color:${pat>=1e7?'var(--ok)':'var(--ink)'}">₹${cr(pat)}</b></div><div>Annual run-rate<b>₹${cr(rev*12)}</b></div><div>Target ₹1 Cr/month after tax<b>${pat>=1e7?'✅ reached':Math.round(pat/1e5)+' L of 100 L'}</b></div>`}
+document.querySelectorAll('#v-admin input').forEach(i=>i.addEventListener('input',calcInvestor));
 setRole(M.role||'co');
 // ---------- pipeline ----------
 const DEMO=[{id:'d1',name:'Priya N.',role:'Senior Backend Engineer',overall:4.4,recm:'strong_hire',status:'approved · offer T2 drafted',conf:.91},{id:'d2',name:'Marcus O.',role:'Senior Backend Engineer',overall:3.7,recm:'hire',status:'awaiting sign-off',conf:.84},{id:'d3',name:'Lena K.',role:'Account Executive',overall:3.1,recm:'hold',status:'awaiting sign-off',conf:.58},{id:'d4',name:'Tom R.',role:'Account Executive',overall:2.4,recm:'reject',status:'approved · feedback sent',conf:.88}];

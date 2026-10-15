@@ -185,3 +185,15 @@ All purchases are demo-only. Real payments need a gateway such as Razorpay.
 - **Hidden while off:** the Live interview, Report and Pipeline tabs; interviewer look, voice, presenter, name and interview length; rubric generation; "Invite to AI interview"; job-seeker practice interviews; the AI-interviewer add-on plan. The "AI-verified" badge becomes "✔ Verified".
 - **Instead:** a **📅 Schedule interview** button for HR-led live interviews. It asks for a date/time and a Google Meet or Zoom link, downloads a calendar invite, moves the candidate to "Interview scheduled" in the hiring pipeline, and posts the details in the chat. **Find matching candidates →** on Job setup opens Talent Match with the role already filled in. The invite email now describes a live video call with the hiring team.
 - Still on, because they aren't the interviewer: "Describe who you need", the ideal-candidate profile and the profile coach. These use Claude when it's connected, otherwise the built-in rules.
+
+## v19 — Competing with the big job portals (all 10 suggestions)
+1. **72-hour reply promise:** companies get a "⚡ Fast responder %" badge, or a warning when they're slow. Candidates see "replies in 72 h" on each interest.
+2. **WhatsApp alerts** for companies (number + switch) and job seekers. Notifications are marked "sent on WhatsApp" (demo). A live app needs the WhatsApp Business API, e.g. through Gupshup, Interakt or Twilio.
+3. **Verified companies:** GSTIN/CIN format check (kept private), a "✔ Verified company" badge, and **⚑ Report job** on every job for scams and money requests.
+4. **Salary required:** companies can't search without a salary budget. Every job shows a salary range, and job seekers can filter by minimum salary.
+5. **First hire free:** the first hiring fee is ₹0, shown with a banner and on the invoice line.
+6. **🏠 Household help:** nanny, cook, driver, elderly care, housekeeper, gardener, security guard and patient-care attendant, across 18 cities. Police/ID-verified badges. Plans: contact ₹199, shortlist ₹499, police verification ₹599, replacement guarantee ₹999 (all + GST); free for workers.
+7. **🎓 Campus:** colleges paste a student batch (free listing; premium ₹2,999/mo). Companies schedule campus drives (₹19,999 + GST per season), which counts the eligible students automatically.
+8. **Company reviews:** job seekers rate companies 1–5, and the average shows on each job.
+9. **📊 Admin → City launch dashboard:** candidates, tutors, household workers, hires and revenue per city, with a Live / Growing / Launch-next status.
+10. **📊 Admin → Investor dashboard:** an editable calculator for revenue, costs, profit before and after tax, annual run-rate and progress towards **₹1 Cr a month after tax**.
