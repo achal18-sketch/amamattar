@@ -100,3 +100,13 @@ for pitch/timing, scored separately and audited for bias).
 | Consistency traps | The interviewer asks personal follow-ups only the real person could answer instantly; contradictions are flagged |
 
 All signals feed a 0–100 risk meter and a clickable integrity timeline in the report (jumps to the recording). **They never auto-reject**; high risk sends the case to a human. A browser can't see a phone or second laptop held off camera. The background-voice detector and consistency traps are the main defence there, and production should add server-side gaze/face models and a proctoring desktop agent.
+
+## v7 — Talent Match marketplace (a profile marketplace, like matrimonial sites)
+- **Two sides, separate plans.** Companies: Free / Starter ₹4,999 / Pro ₹14,999 / Enterprise. Job seekers: Free / Gold ₹499 / Platinum ₹1,299. Prices are placeholders, and payment isn't wired up yet (it would need Razorpay or Stripe).
+- **Gated profiles.** Free companies see only match cards with details blurred. Paid plans unlock full profiles (Starter 25/month, Pro unlimited) and show AI-verified interview scores.
+- **Mutual-interest contact.** A company sends an interest → the candidate accepts → contact is shared → the company can invite them to an AI interview with one click.
+- **Confidential job search for employed people.** Post expected salary, notice period and work mode, hide your name and employer behind an alias, and block specific companies (e.g. your current employer) from seeing you. Current salary is used for matching only, never shown.
+- **Anonymous companies.** Company name is optional; "Hide our identity" makes the interviewer say "a confidential company".
+- **Simple AI interviewer name.** Default "Ava"; pick Maya, Sam, Riya, Leo or Mia, or type any name.
+- **Job-seeker extras.** Matched jobs, practice for each one, see who viewed you (Gold+), AI profile coach with salary benchmark (Platinum).
+- **No photos, age, religion or caste fields.** Unlike matrimonial sites, profiles hold only job-related data, to avoid discrimination.
