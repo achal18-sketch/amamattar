@@ -179,3 +179,9 @@ All purchases are demo-only. Real payments need a gateway such as Razorpay.
 - 👤 Job seeker → only job-seeker plans (and Freelance & gig, when turned on in admin).
 - 📚 Tutor / parent → only tutor & parent plans.
 - The heading says who the plans are for, and the Monthly / Yearly switch applies to whichever role is selected.
+
+## v18 — AI interviewer switched off (for now)
+- One switch in `app/index.html`: `const AI_INTERVIEWER=false`. Set it to `true` to bring everything back.
+- **Hidden while off:** the Live interview, Report and Pipeline tabs; interviewer look, voice, presenter, name and interview length; rubric generation; "Invite to AI interview"; job-seeker practice interviews; the AI-interviewer add-on plan. The "AI-verified" badge becomes "✔ Verified".
+- **Instead:** a **📅 Schedule interview** button for HR-led live interviews. It asks for a date/time and a Google Meet or Zoom link, downloads a calendar invite, moves the candidate to "Interview scheduled" in the hiring pipeline, and posts the details in the chat. **Find matching candidates →** on Job setup opens Talent Match with the role already filled in. The invite email now describes a live video call with the hiring team.
+- Still on, because they aren't the interviewer: "Describe who you need", the ideal-candidate profile and the profile coach. These use Claude when it's connected, otherwise the built-in rules.
