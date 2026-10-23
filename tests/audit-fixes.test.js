@@ -1,0 +1,26 @@
+// Run: node tests/audit-fixes.test.js  (needs `npm i playwright`; set CHROME_PATH if Chromium is not installed by Playwright)
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch({executablePath:process.env.CHROME_PATH||undefined});
+const p=await b.newPage({viewport:{width:1280,height:1000},acceptDownloads:true});const errs=[];p.on('pageerror',e=>errs.push(e.message));
+p.on('dialog',d=>{const m=d.message();d.accept(m.includes('Why are you reporting')?'fake':m.includes('salary')?'600000':m.includes('Rate')?'4':'')});
+await p.goto('file://'+require('path').resolve(__dirname,'../app/index.html'));await p.waitForTimeout(400);
+console.log('overseas in list:',await p.evaluate(()=>CITIES.some(c=>/Dubai|London|Doha/.test(c))));
+await p.click('footer >> text=Privacy policy');console.log('legal:',(await p.textContent('#legalT')),(await p.textContent('#legalB')).slice(0,50));await p.click('#legalDlg button');
+await p.click('[data-v=match]');console.log('admin switch disabled:',await p.isDisabled('#adminMode'));
+await p.click('text=Choose >> nth=2');await p.check('#mQuiet');await p.click('#mFind');console.log('badge:',await p.textContent('#profiles .chip >> nth=1'));
+await p.click('#profiles [aria-label="Rate employee"] >> nth=0');
+await p.click('#profiles >> text=💌 Send interest >> nth=0');console.log('terms ok:',await p.evaluate(()=>!!M.termsOk));
+await p.click('#profiles [aria-label="Report profile"] >> nth=3');
+await p.click('#asCand');await p.check('#pAdult');await p.check('#pConsent');await p.click('#pSave');console.log('no consent:',await p.textContent('#pNote'));await p.check('#pAdult');await p.check('#pConsent');await p.check('#pAdult');await p.check('#pConsent');await p.click('#pSave');console.log('saved:',await p.textContent('#pNote'));
+await p.click('#asTutor');console.log('tutor safety:',await p.isVisible('text=/Child safety/'));
+await p.click('footer >> text=Grievance officer / complaint');await p.fill('#cmpTxt','Company asked me for ₹2000 registration fee');await p.click('text=Submit complaint');
+await p.click('[data-v=admin]');console.log('gate visible:',await p.isVisible('#adminGate'),'body hidden:',!(await p.isVisible('#adminBody')));
+await p.fill('#admPin','2468');await p.click('#admGo');await p.waitForTimeout(200);console.log('unlocked:',await p.isVisible('#adminBody'),'| mod:',(await p.textContent('#modQ')).replace(/\s+/g,' ').slice(0,200));
+console.log('week:',(await p.textContent('#weekKpi')).replace(/\s+/g,' '));
+await p.click('#modQ >> text=✓ Resolve >> nth=0');console.log('after resolve items:',await p.$$eval('#modQ .sig',d=>d.length));
+await p.check('#pilotMode');console.log('pilot hides house:',!(await p.isVisible('#asHouse')));
+await p.selectOption('#gstState','Karnataka');await p.fill('#gstSeller','29ABCDE1234F1Z5');await p.dispatchEvent('#gstSeller','change');
+const [d]=await Promise.all([p.waitForEvent('download'),p.click('#priceSheet')]);console.log('price rows:',require('fs').readFileSync(await d.path(),'utf8').split('\n').length);
+console.log('inv:',(await p.textContent('#ivOut')).replace(/\s+/g,' ').match(/LTV[^C]*CAC[^M]*/)[0]);
+await p.click('#admLock');console.log('locked again:',await p.isVisible('#adminGate'));
+await p.screenshot({path:require('path').resolve(__dirname,'out/'+require('path').basename(__filename)+'.png'),fullPage:false});
+console.log('errors:',errs);await b.close()})();

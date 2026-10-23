@@ -70,3 +70,40 @@ Scope: the whole project. That means the app (`app/index.html`), the business mo
 - **Reach:** 72k searchable roles, "describe who you need", 14 app languages, and support-staff, tutor, household and campus segments.
 - **Pricing:** revenue streams with high margins (hiring fees, unlocks, verification add-ons) and transparent GST pricing.
 - **Fairness by design:** no photos, age, caste or religion fields.
+
+## 5. Fix status (updated 23 Oct 2026)
+✅ fixed in the app or repo · 🟡 partly fixed (the in-app part is done; a real service or professional is still needed) · ⏳ open (cannot be done inside a browser prototype)
+
+| # | Status | What was done |
+|---|---|---|
+| A1 | ⏳ | Backend not built. **Ready for it:** `db/marketplace.sql` (users, consent, companies, profiles, jobs with salary required, interests + 100-hour clock, hires ledger, plans/subscriptions/credits/usage counters, GST invoices, ratings, reports, tutors, household, campus, referrals, audit log), loaded without errors into PostgreSQL 16. Next: phone-OTP login, Razorpay, a WhatsApp provider. |
+| A2 | 🟡 | Admin tab and the plan show/hide switch now need an **Admin PIN** (locks again on reload). A real app needs staff accounts on a server. |
+| A3 | ✅ | `VERIF_LIVE=false`: no "Verified" or "Police verified" badges are shown any more. Cards say "🪪 ID check pending" / "Company check pending" / "GSTIN format ✓ · verification pending" until real checks are connected. |
+| A4 | ⏳ | Free first hire, credits and limits are still browser-side. The schema has `companies.first_hire_used`, `credit_ledger` and `usage_counters` to move them to the server. |
+| A5 | 🟡 | **13 browser tests** are now in `tests/` (`tests/run-all.sh`) and all pass. Splitting the single file into a React/Next.js app is still to do. |
+| A6 | ✅ | Escaping checked; no change needed. Add a content-security policy at hosting time. |
+| A7 | ✅ | AI interviewer stays switched off (`AI_INTERVIEWER=false`) and is documented as Phase 2. |
+| A8 | 🟡 | The AI resume allowance now **resets every calendar month**. PDF/DOCX parsing needs a server. |
+| B1 | ✅ | Before a company's first interest it must **agree to the 12-month hiring-fee clause**, the 100-hour reply promise and "never ask candidates for money". The same terms are in Terms and the Hiring-fee agreement. |
+| B2 | ✅ | **Pilot mode** (Admin → Launch settings): shows only SMB hiring + tutors and hides household, campus, freelance and extras. |
+| B3 | ✅ | One price source: `docs/PRICES.md` is generated from the app, plus Admin → **Download price sheet** (CSV). The design mock-up prices now match (Starter ₹29,999/yr, Pro ₹99,999/yr, Enterprise from ₹4.99 L, + GST). |
+| B4 | ✅ | Noted. The investor dashboard keeps job-seeker revenue as a separate input you can set to 0. |
+| B5 | ✅ | Investor dashboard now has **CAC, new customers per month and monthly churn**, giving **LTV ÷ CAC**, **CAC payback months** and the marketing budget needed. |
+| B6 | 🟡 | A Hiring-fee agreement page (fee, 15-day payment terms, replacement, disputes) plus the GST invoice. Real collection needs Razorpay/Zoho. |
+| C1 | 🟡 | **Privacy policy (DPDP Act 2023)**, a consent checkbox on profile save (time recorded), **🗑 Delete my data**, and grievance contact placeholders. A lawyer must finalise it, and data must be hosted in India. |
+| C2 | 🟡 | **Terms, Refund & cancellation, Hiring-fee agreement, Community & safety rules** pages are in the footer. These are drafts with [placeholders] for a lawyer to review. |
+| C3 | ✅ | **All overseas cities removed** (Dubai, Doha, Riyadh, London…), and the rules say "We recruit only for jobs in India". |
+| C4 | 🟡 | **18+ declaration required** to post a profile. Child-safety notices for tutors (parent at the first demo) and household help. Badges stay "check pending" until real ID and police checks are live. |
+| C5 | 🟡 | The household view tells families to pay at least the state minimum wage. Legal check needed in each launch state. |
+| C6 | ✅ | **Grievance officer page + complaint form** → Admin moderation queue (acknowledge in 24 h, resolve in 15 days). Fill in the officer's real name. |
+| C7 | 🟡 | Admin → your **GSTIN and registered state** feed the invoice (CGST+SGST vs IGST). GST registration and SAC codes still need a CA. |
+| C8 | ✅ | Ratings are allowed **only after a real interaction**: employees after they accept your interest, tutors after contact, and parents only with "I taught this family". Abusive words are blocked. |
+| C9 | ✅ | Kept. |
+| D1 | ✅ | **🛡 Moderation queue** in Admin: profile reports, job reports and complaints, each with a 24-hour timer and Resolve / Remove buttons. |
+| D2 | ⏳ | Staffing is a business decision: budget 1 salesperson + 1 operations person per city. |
+| D3 | ✅ | Admin → **This week**: hires, accepted interests, 100-hour reply rate, paid actions, open reports and revenue. |
+| E1 | ✅ | README rewritten for the marketplace; the AI documents are listed as Phase 2. |
+| E2 | ✅ | `docs/PRICES.md` is the current one-page price sheet. |
+| E3 | ✅ | `db/marketplace.sql` added. |
+
+**Still needs outside work before launch:** backend + logins (A1/A4), real GST/KYC/police verification (A3/C4), Razorpay + invoicing (B6/C7), a lawyer for the legal pages and state rules (C1/C2/C5), a CA for GST, and city staff (D2).

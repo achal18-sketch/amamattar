@@ -1,25 +1,21 @@
-# TalentCore AI — Autonomous Virtual Recruitment Agency
+# TalentCore — trusted hiring marketplace for India
 
-Design package for a multi-tenant platform that ingests employer requirements, generates
-interview blueprints, runs real-time multimodal AI interviews, and produces evidence-backed
-hiring decisions. Target: 50,000+ interviews/day, ~5,000 concurrent sessions at peak.
+A matrimonial-style hiring marketplace. **Companies** (they can stay anonymous) and **job seekers** (they can search confidentially) connect only when both sides accept. It also covers **home tutors & parents**, **household help**, **facility & support staff** (office boy, sweeper, school ayah…), and **campus hiring**.
 
-| Deliverable | File |
+**Status:** a working single-page **prototype** (`app/index.html`). Logins, payments, verification and WhatsApp are simulated, and data is stored only in the browser. See [docs/AUDIT.md](docs/AUDIT.md) for what is needed before launch.
+
+| What | Where |
 |---|---|
-| 1. System architecture & data flow | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-| 2. Database schema (PostgreSQL DDL + ClickHouse) | [db/schema.sql](db/schema.sql), [db/analytics.sql](db/analytics.sql) |
-| 3. API & event specs | [docs/API_AND_EVENTS.md](docs/API_AND_EVENTS.md) |
-| 4. Agent prompt strategy & tools | [prompts/INTERVIEWER_AGENT.md](prompts/INTERVIEWER_AGENT.md) |
-| Compliance design | [docs/COMPLIANCE.md](docs/COMPLIANCE.md) |
-| Additional features & roadmap | [docs/FEATURES.md](docs/FEATURES.md) |
-| **Management audit (23 Oct 2026)** | [docs/AUDIT.md](docs/AUDIT.md) |
-| **Live prototype app** (open in Chrome) | [app/index.html](app/index.html) |
+| **Prototype app** (open in Chrome) | [app/index.html](app/index.html) |
+| Management audit & fix status | [docs/AUDIT.md](docs/AUDIT.md) |
+| Feature history (v1–v24) | [docs/FEATURES.md](docs/FEATURES.md) |
+| Current price sheet | Admin tab → "Download price sheet", or [docs/PRICES.md](docs/PRICES.md) |
+| Marketplace database schema (for the backend) | [db/marketplace.sql](db/marketplace.sql) |
+| 72,007 job titles (MIT-licensed source) | [data/](data/) |
+| Browser tests (Playwright) | [tests/](tests/) |
+| **Phase 2 — AI interviewer** (switched off in the app: `AI_INTERVIEWER=false`) | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/API_AND_EVENTS.md](docs/API_AND_EVENTS.md), [prompts/](prompts/), [db/schema.sql](db/schema.sql), [docs/COMPLIANCE.md](docs/COMPLIANCE.md) |
 
-> **Design stance on autonomy.** The spec asks for "zero human HR intervention." Under the
-> EU AI Act (Annex III, high-risk: employment) Art. 14 human oversight is mandatory, GDPR
-> Art. 22 gives candidates a right to human review of solely-automated decisions, and NYC
-> LL144 requires bias audits and notice. This design therefore makes everything autonomous
-> **up to** final adverse/offer decisions, which are executed automatically only in
-> jurisdictions/tenants where that is lawful, and otherwise pass through a lightweight
-> one-click human sign-off queue (`decision_policy.require_human_signoff`). Candidates can
-> always request human review and an accommodation/alternative assessment.
+## Switches in `app/index.html`
+- `AI_INTERVIEWER=false`: set to `true` to bring back the AI video interviewer, report and pipeline.
+- `VERIF_LIVE=false`: set to `true` **only** once real GST/KYC/police-verification checks are live. Until then badges say "check pending".
+- Admin tab → **Pilot mode**: shows only SMB hiring + tutors, for a one-city launch.
