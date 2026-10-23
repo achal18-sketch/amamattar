@@ -12,6 +12,7 @@ hiring decisions. Target: 50,000+ interviews/day, ~5,000 concurrent sessions at 
 | 4. Agent prompt strategy & tools | [prompts/INTERVIEWER_AGENT.md](prompts/INTERVIEWER_AGENT.md) |
 | Compliance design | [docs/COMPLIANCE.md](docs/COMPLIANCE.md) |
 | Additional features & roadmap | [docs/FEATURES.md](docs/FEATURES.md) |
+| **Management audit (23 Oct 2026)** | [docs/AUDIT.md](docs/AUDIT.md) |
 | **Live prototype app** (open in Chrome) | [app/index.html](app/index.html) |
 
 > **Design stance on autonomy.** The spec asks for "zero human HR intervention." Under the
